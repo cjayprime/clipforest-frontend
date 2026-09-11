@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KlipFlow - Processing Video Clips</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#003824",
+            "primary": "#c0c1ff",
+            "on-error-container": "#ffdad6",
+            "on-background": "#d4e4fa",
+            "primary-container": "#8083ff",
+            "secondary-fixed": "#acedff",
+            "tertiary": "#4edea3",
+            "surface-bright": "#2c3a4c",
+            "surface-container-lowest": "#010f1f",
+            "inverse-surface": "#d4e4fa",
+            "surface-container-high": "#1c2b3c",
+            "surface-container-highest": "#273647",
+            "primary-fixed": "#e1e0ff",
+            "inverse-on-surface": "#233143",
+            "on-tertiary-fixed": "#002113",
+            "error-container": "#93000a",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "on-tertiary-container": "#000703",
+            "surface-dim": "#051424",
+            "secondary": "#4cd7f6",
+            "surface-container-low": "#0d1c2d",
+            "on-secondary": "#003640",
+            "secondary-fixed-dim": "#4cd7f6",
+            "outline": "#908fa0",
+            "tertiary-fixed-dim": "#4edea3",
+            "surface": "#051424",
+            "on-secondary-fixed-variant": "#004e5c",
+            "primary-fixed-dim": "#c0c1ff",
+            "surface-tint": "#c0c1ff",
+            "surface-variant": "#273647",
+            "on-primary-container": "#0d0096",
+            "error": "#ffb4ab",
+            "on-surface": "#d4e4fa",
+            "on-surface-variant": "#c7c4d7",
+            "on-error": "#690005",
+            "on-primary-fixed": "#07006c",
+            "on-secondary-container": "#00424e",
+            "surface-container": "#122131",
+            "on-secondary-fixed": "#001f26",
+            "secondary-container": "#03b5d3",
+            "on-tertiary-fixed-variant": "#005236",
+            "inverse-primary": "#494bd6",
+            "outline-variant": "#464554",
+            "background": "#051424",
+            "on-primary": "#1000a9",
+            "tertiary-container": "#00885d",
+            "tertiary-fixed": "#6ffbbe"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-2xl": "2rem",
+            "space-lg": "1.25rem",
+            "inspector-width": "22rem",
+            "space-xl": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-3xl": "2.5rem",
+            "space-4xl": "3rem",
+            "space-md": "0.75rem",
+            "gutter-canvas": "1.5rem",
+            "space-2xs": "0.125rem",
+            "space-base": "1rem",
+            "space-sm": "0.5rem",
+            "sidebar-width": "17.5rem"
+          },
+          "fontFamily": {
+            "body-sm": ["Geist"],
+            "display-lg-mobile": ["Geist"],
+            "label-code-md": ["JetBrains Mono"],
+            "headline-sm": ["Geist"],
+            "label-code-lg": ["JetBrains Mono"],
+            "body-lg": ["Geist"],
+            "label-code-sm": ["JetBrains Mono"],
+            "headline-lg": ["Geist"],
+            "headline-md": ["Geist"],
+            "body-md": ["Geist"],
+            "headline-lg-mobile": ["Geist"],
+            "display-lg": ["Geist"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "label-code-md": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-code-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "label-code-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 12px rgba(128, 131, 255, 0.45)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 24px rgba(128, 131, 255, 0.8)); }
+    }
+    @keyframes progress-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+    .shimmer-active {
+      animation: progress-shimmer 2.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pulse-glow-box {
+      animation: pulse-glow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary selection:text-on-primary min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- Persistent Left Rail / SideNavBar (Source of Truth JSON Executed) -->
+<aside class="fixed top-0 left-0 h-screen w-sidebar-width z-40 bg-surface-container-lowest border-r border-outline-variant/30 flex flex-col justify-between p-space-md">
+<!-- Header Section -->
+<div class="flex flex-col gap-space-lg">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-primary-container/20 border border-primary-container/40 flex items-center justify-center text-primary shadow-[0_0_16px_rgba(128,131,255,0.25)]">
+<span class="material-symbols-outlined" data-icon="auto_videocam" style="font-variation-settings: 'FILL' 1;">auto_videocam</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md tracking-tight text-on-surface font-semibold">KlipFlow</span>
+<span class="text-label-code-sm font-label-code-sm text-outline tracking-wider uppercase">Creator Studio</span>
+</div>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-label-code-sm font-medium bg-tertiary/10 text-tertiary border border-tertiary/30">
+          PRO v2.4
+        </span>
+</div>
+<!-- Navigation Menu -->
+<nav class="flex flex-col gap-1">
+<!-- 1. Home -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-body-md font-body-md">Home</span>
+</a>
+<!-- 2. Videos (ACTIVE: Closest match to processing screen with animated processing badge) -->
+<a class="flex items-center justify-between px-space-md py-space-sm rounded-lg bg-surface-container-high text-primary font-medium active:scale-[0.98] transition-transform duration-100 ease-out shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-primary-container/20" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="movie" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="text-body-md font-body-md">Videos</span>
+</div>
+<!-- Real-time processing micro chip -->
+<div class="flex items-center gap-1.5 bg-primary-container/20 px-2 py-0.5 rounded-full border border-primary/30">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span class="text-label-code-sm font-label-code-sm text-primary">62%</span>
+</div>
+</a>
+<!-- 3. Clips -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+<span class="text-body-md font-body-md">Clips</span>
+</a>
+<!-- 4. Templates -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+<span class="text-body-md font-body-md">Templates</span>
+</a>
+<!-- 5. Brand Kit -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span class="text-body-md font-body-md">Brand Kit</span>
+</a>
+<!-- 6. Usage -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="data_usage">data_usage</span>
+<span class="text-body-md font-body-md">Usage</span>
+</a>
+<!-- 7. Settings -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Footer Cluster (Immutable JSON Labels & Tokens) -->
+<div class="flex flex-col gap-space-sm pt-space-md border-t border-outline-variant/30">
+<!-- Usage meter / Plan widget -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between text-label-code-sm font-label-code-sm">
+<span class="flex items-center gap-1.5 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-[14px]" data-icon="bolt">bolt</span>
+            Creator Plan (45/100m)
+          </span>
+<span class="text-outline">45%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 45%;"></div>
+</div>
+<button class="mt-1 w-full py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary border border-primary/20 text-label-code-sm font-label-code-sm font-medium transition-all text-center">
+          Upgrade Plan
+        </button>
+</div>
+<!-- Documentation Tab -->
+<a class="flex items-center gap-3 px-space-md py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 text-label-code-md font-label-code-md" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span>Documentation</span>
+</a>
+<!-- User Profile Pill -->
+<div class="flex items-center justify-between px-2 py-2 rounded-xl bg-surface-container-low/50 border border-outline-variant/20 mt-1">
+<div class="flex items-center gap-2.5">
+<img class="w-8 h-8 rounded-lg object-cover border border-outline-variant/40" data-alt="Close up photographic portrait avatar of digital video creator Alex Morgan wearing modern studio headphones in front of subtle electric indigo ambient LED lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCha0ArGmzl3Bd6FSoN_BQDap803OiTDZykOGZR9pOu6oNYezqCNYTWNfvhUvDdHVRGUdnHTTsSZa_vLz6Pf4iC55qS6DXDRi8-xN5YF8Q6NyH51oyL9cE5dy8LfBKckJEJKkui-VF8RmHSCvZHzSTNoD3Byas1tRV9A4asfWgWHCci09UDOZLUBZQqpnZ4BeY8QP-JBE2PBUoaaFUzj18i0HSBYJ6Ane5R8GcWk6H9EsiubcJEu-Bs"/>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md font-medium text-on-surface leading-tight">Alex Morgan</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">Studio Lead</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px] hover:text-on-surface cursor-pointer" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Wrapper (Pushed right by sidebar width) -->
+<div class="pl-sidebar-width min-h-screen flex flex-col bg-surface">
+<!-- TopNavBar (Shared Component Specification) -->
+<header class="sticky top-0 right-0 z-30 w-full h-14 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 flex items-center justify-between px-space-xl">
+<!-- Left side: Breadcrumb & Search -->
+<div class="flex items-center gap-4 w-96">
+<div class="flex items-center gap-2 text-label-code-md font-label-code-md text-outline">
+<span class="hover:text-on-surface cursor-pointer">Projects</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-medium">Batch Ingestion</span>
+</div>
+<div class="relative flex-1 hidden md:block">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[16px]" data-icon="search">search</span>
+<input class="w-full h-8 pl-8 pr-3 text-label-code-sm font-label-code-sm bg-surface-container-low border border-outline-variant/30 rounded-lg text-on-surface placeholder-outline focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search projects, clips..." type="text"/>
+</div>
+</div>
+<!-- Right Trailing Actions -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1.5 px-3 h-8 rounded-lg text-label-code-md font-label-code-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="help_center">help_center</span>
+<span>Help</span>
+</button>
+<button aria-label="Notifications" class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-[18px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span>
+</button>
+<div class="h-4 w-px bg-outline-variant/40 mx-1"></div>
+<button class="flex items-center gap-2 px-3.5 h-8 rounded-lg bg-primary text-on-primary font-medium text-label-code-md font-label-code-md shadow-[0_0_16px_rgba(99,102,241,0.35)] hover:bg-primary-container transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[16px]" data-icon="add" style="font-variation-settings: 'FILL' 1;">add</span>
+<span>Create Clips</span>
+</button>
+<img class="w-8 h-8 rounded-lg object-cover border border-outline-variant/40" data-alt="Alex Morgan profile icon small avatar in dark obsidian high contrast style with violet ambient studio edge light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEciy_FpSp1MDf_E8Br7--7eLWehteG0LG92l5I78cLQ-E-ylWqS7M5jWzv9vx1JRT9NgQ2gnFoxIRLQ310k38jwLqdlMVxjv2CTi0_MrYKaEfkoNDzSJW2cLBAkZEmt16yt2VnDEF8RbXWq1Yn8R6aQ8lnDm_h0QgcGtMd6_E3PWEDE7JIh-9OAyj9UPCZn3NedpfivwJU1UmQ0AFN9Gl6gJhvPmUU0RCP-fu0QV6plwQ1dtBOVgM"/>
+</div>
+</header>
+<!-- Centered Video Processing Workspace Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center p-space-xl lg:py-12 px-space-md">
+<!-- Primary Focused Processing Card (Max ~780px) -->
+<div class="w-full max-w-[780px] flex flex-col gap-space-lg">
+<!-- Main Card Container -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-2xl p-6 lg:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+<!-- Subtle Top Ambient Glow Accent -->
+<div class="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-80"></div>
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-28 bg-primary/15 blur-3xl pointer-events-none rounded-full"></div>
+<!-- Top Video Header & Metadata Strip -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-outline-variant/20">
+<div class="flex items-center gap-4">
+<!-- Video Poster / Thumbnail with glowing processing badge -->
+<div class="relative w-24 h-16 rounded-xl overflow-hidden border border-outline-variant/40 bg-surface-container-lowest flex-shrink-0 group">
+<img class="w-full h-full object-cover opacity-75" data-alt="A modern cinematic studio setup of two tech podcast hosts speaking into Shure SM7B microphones with neon violet and deep blue edge lighting, filmed in razor sharp 1080p 60fps high production aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArooDtTGSTSXy_Fa_9CoGZtp-qEYzs2E83FOGXdfHhGUNETmJlB5vcdW5TH5Xxv9QmBxLzpVngNCMOrzAxsmEysNmDsW_81uPk6kiQCbZUf7tvs9nYCQapBwjRBFmVbKv3RN_AWG4DZMrlBDytfCoUBfAQHwRkpFM1jjJhyzokBCEJ_Psqj60DH2jT1ZbfM4wA-bVmI0nGwXCr7QlwtLwu9QO5AxcS0IgTrAABE0VWtZdIIfwwQSeU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<!-- Play/Processing Icon -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px] drop-shadow-md animate-pulse" data-icon="sync">sync</span>
+</div>
+<!-- Duration pill -->
+<span class="absolute bottom-1 right-1.5 px-1 py-0.2 bg-black/80 text-on-surface font-label-code-sm text-[9px] rounded">48:32</span>
+</div>
+<!-- Meta details -->
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-2">
+<span class="text-label-code-sm font-label-code-sm text-secondary flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]" data-icon="smart_toy">smart_toy</span>
+                    AI Pipeline Active
+                  </span>
+<span class="text-outline-variant text-[12px]">•</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">Uploaded 2 minutes ago</span>
+</div>
+<h1 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">Podcast Episode #42: Future of AI Hardware</h1>
+<div class="flex items-center gap-2 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-error" data-icon="play_circle">play_circle</span>
+                    YouTube import (1080p 60fps)
+                  </span>
+<span class="text-outline-variant">•</span>
+<span class="text-outline">Session ID: #kflow-88219</span>
+</div>
+</div>
+</div>
+<!-- Virality Engine Live Badge -->
+<div class="self-start sm:self-center flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-primary/20">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#4edea3]"></span>
+<span class="text-label-code-sm font-label-code-sm font-medium text-tertiary">VIRALITY RADAR ON</span>
+</div>
+</div>
+<!-- Headline & Calm Status Explanation -->
+<div class="mt-6 flex flex-col gap-2">
+<div class="flex items-center gap-2.5">
+<h2 class="text-headline-lg font-headline-lg text-on-surface font-bold tracking-tight">
+                Finding your best moments...
+              </h2>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed max-w-2xl">
+              Our AI is analyzing speech pacing, emotional inflection, conversational hooks, and visual speaker presence across 48 minutes of footage.
+            </p>
+</div>
+<!-- Central Progress Bar & Metrics Container -->
+<div class="mt-8 bg-surface-container-lowest/80 border border-outline-variant/30 rounded-xl p-5 flex flex-col gap-4">
+<div class="flex items-end justify-between">
+<div class="flex flex-col">
+<span class="text-label-code-sm font-label-code-sm uppercase tracking-wider text-outline">Processing Status</span>
+<div class="flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-on-surface font-semibold tracking-tight">62%</span>
+<span class="text-label-code-lg font-label-code-lg text-primary font-medium">Completed</span>
+</div>
+</div>
+<!-- ETA & Speed Indicators -->
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1.5 text-label-code-md font-label-code-md text-on-surface bg-surface-container px-2.5 py-1 rounded-md border border-outline-variant/30">
+<span class="material-symbols-outlined text-[15px] text-primary" data-icon="hourglass_top">hourglass_top</span>
+<span>Estimated remaining time: <strong class="text-primary font-semibold">~1m 20s</strong></span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="bolt">bolt</span>
+                  Processing at 4.2x real-time speed
+                </span>
+</div>
+</div>
+<!-- Sleek Animated Progress Bar -->
+<div class="relative w-full h-3 bg-surface-container-high rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-gradient-to-r from-primary-container via-primary to-secondary rounded-full relative overflow-hidden transition-all duration-500 shadow-[0_0_16px_rgba(128,131,255,0.6)]" style="width: 62%;">
+<!-- Shimmer highlight animation -->
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent shimmer-active"></div>
+</div>
+</div>
+<!-- Hook Moments Counter Ribbon -->
+<div class="flex items-center justify-between text-label-code-sm font-label-code-sm text-outline pt-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="graphic_eq">graphic_eq</span>
+<span>Audio Waveform Synchronized</span>
+</span>
+<span class="text-on-surface font-medium flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span>8 High-Potential Hooks Identified So Far</span>
+</span>
+</div>
+</div>
+<!-- Multi-Stage Vertical Progression Stepper -->
+<div class="mt-8 flex flex-col gap-0 relative">
+<!-- Continuous Connecting Background Line -->
+<div class="absolute left-4 top-5 bottom-6 w-0.5 bg-outline-variant/30 -translate-x-1/2"></div>
+<!-- Completed Highlight Overlay Line -->
+<div class="absolute left-4 top-5 h-[48%] w-0.5 bg-tertiary -translate-x-1/2 shadow-[0_0_8px_#4edea3]"></div>
+<!-- Stage 1: Completed -->
+<div class="relative flex items-start gap-4 py-3 group">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-tertiary z-10 shadow-[0_0_12px_rgba(78,222,163,0.3)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-semibold text-on-surface">1. Preparing video</span>
+<span class="px-2 py-0.2 rounded text-[10px] font-label-code-sm bg-tertiary/10 text-tertiary border border-tertiary/20">100%</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Audio demuxed, 1080p stream normalized</span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-outline font-medium">12s elapsed</span>
+</div>
+</div>
+<!-- Stage 2: Completed -->
+<div class="relative flex items-start gap-4 py-3 group">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/30 border border-tertiary flex items-center justify-center text-tertiary z-10 shadow-[0_0_12px_rgba(78,222,163,0.3)]">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-semibold text-on-surface">2. Transcribing audio</span>
+<span class="px-2 py-0.2 rounded text-[10px] font-label-code-sm bg-tertiary/10 text-tertiary border border-tertiary/20">100%</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Whisper multilingual diary: 2 speakers detected (7,420 words)</span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-outline font-medium">38s elapsed</span>
+</div>
+</div>
+<!-- Stage 3: Active / In-Progress -->
+<div class="relative flex items-start gap-4 py-3 bg-surface-container/40 -mx-4 px-4 rounded-xl border border-primary/20">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 border border-primary flex items-center justify-center text-primary z-10 shadow-[0_0_16px_rgba(128,131,255,0.6)] animate-pulse">
+<span class="material-symbols-outlined text-[18px]" data-icon="radar">radar</span>
+</div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-semibold text-primary">3. Finding highlights</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-code-sm bg-primary/10 text-primary border border-primary/30 font-medium animate-pulse">In Progress</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-background">Evaluating 48 conversational peaks against 2.4M viral short patterns</span>
+</div>
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span>Scoring hooks...</span>
+</div>
+</div>
+</div>
+<!-- Stage 4: Upcoming / Pending -->
+<div class="relative flex items-start gap-4 py-3 opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-outline z-10">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+</div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-medium text-on-surface">4. Ranking moments</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">Pending</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Virality scoring, retention curve prediction, hook classification</span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-outline">~45s</span>
+</div>
+</div>
+<!-- Stage 5: Upcoming / Pending -->
+<div class="relative flex items-start gap-4 py-3 opacity-60">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-outline z-10">
+<span class="material-symbols-outlined text-[16px]" data-icon="splitscreen">splitscreen</span>
+</div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md font-medium text-on-surface">5. Preparing results</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">Pending</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline">Generating vertical clips preview and caption sync</span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-outline">~35s</span>
+</div>
+</div>
+</div>
+<!-- Reassurance & Background Processing Card / Banner -->
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary border border-outline-variant/40 flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="cloud_done">cloud_done</span>
+</div>
+<div class="flex flex-col">
+<span class="text-body-md font-body-md font-medium text-on-surface">You're free to leave this page.</span>
+<span class="text-body-sm font-body-sm text-outline">Processing will continue in the cloud without interruption.</span>
+</div>
+</div>
+<!-- Notification Pill Checkbox Toggle -->
+<label class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-primary/40 cursor-pointer transition-all">
+<input checked="" class="rounded border-outline-variant/50 text-primary focus:ring-0 focus:ring-offset-0 bg-surface-container-lowest w-4 h-4 cursor-pointer" type="checkbox"/>
+<span class="text-label-code-sm font-label-code-sm text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="mark_email_read">mark_email_read</span>
+                Notify me when ready: <strong class="text-primary font-medium">alex@klipflow.io</strong>
+</span>
+</label>
+</div>
+<!-- Secondary Interaction Actions -->
+<div class="mt-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-4 border-t border-outline-variant/15">
+<button class="w-full sm:w-auto px-4 py-2 rounded-lg text-label-code-md font-label-code-md text-error/80 hover:text-error hover:bg-error-container/20 transition-all active:scale-[0.98] flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+<span>Cancel Processing</span>
+</button>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="w-full sm:w-auto px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-label-code-md font-label-code-md text-on-surface font-medium transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="open_in_new">open_in_new</span>
+<span>View in Background</span>
+</button>
+<button class="w-full sm:w-auto px-5 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary text-label-code-md font-label-code-md font-medium transition-all shadow-[0_0_16px_rgba(99,102,241,0.25)] active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="dashboard">dashboard</span>
+<span>Go to Dashboard</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Technical Specification Under-Bar (4 Bento Cards) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<!-- Stat 1: Duration -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3.5 flex flex-col gap-1 hover:border-outline-variant/50 transition-colors">
+<div class="flex items-center justify-between text-outline">
+<span class="text-label-code-sm font-label-code-sm">Duration</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="timer">timer</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-semibold text-on-surface">48m 32s</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">2,912 seconds parsed</span>
+</div>
+<!-- Stat 2: Resolution -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3.5 flex flex-col gap-1 hover:border-outline-variant/50 transition-colors">
+<div class="flex items-center justify-between text-outline">
+<span class="text-label-code-sm font-label-code-sm">Resolution</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="aspect_ratio">aspect_ratio</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-semibold text-on-surface">1920 × 1080</span>
+<span class="text-label-code-sm font-label-code-sm text-primary">60.00 fps constant</span>
+</div>
+<!-- Stat 3: Audio / Language -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3.5 flex flex-col gap-1 hover:border-outline-variant/50 transition-colors">
+<div class="flex items-center justify-between text-outline">
+<span class="text-label-code-sm font-label-code-sm">Audio / Lang</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="translate">translate</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-semibold text-on-surface">English (US)</span>
+<span class="text-label-code-sm font-label-code-sm text-tertiary">99.4% confidence</span>
+</div>
+<!-- Stat 4: Ingest Source -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3.5 flex flex-col gap-1 hover:border-outline-variant/50 transition-colors">
+<div class="flex items-center justify-between text-outline">
+<span class="text-label-code-sm font-label-code-sm">Ingest Source</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="cloud_download">cloud_download</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-semibold text-on-surface">YouTube Stream</span>
+<span class="text-label-code-sm font-label-code-sm text-outline">H.264 / AAC Direct</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

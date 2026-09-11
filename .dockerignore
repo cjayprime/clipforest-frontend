@@ -1,0 +1,17 @@
+node_modules
+.next
+.env*
+npm-debug.log*
+
+# Tests are not part of the image, and Playwright is a global install rather
+# than a dependency — leaving them in would break `next build` inside Docker.
+tests
+playwright.config.ts
+test-results
+playwright-report
+tour-screenshots
+
+# Docs and the design reference add nothing to the runtime image.
+docs
+__ui_design__
+*.md

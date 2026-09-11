@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Obsidian Kinetic design tokens (__ui_design__/obsidian_kinetic/DESIGN.md). */
+@theme {
+  --color-canvas: #051424;
+  --color-surface-lowest: #010f1f;
+  --color-surface-low: #0d1c2d;
+  --color-surface: #122131;
+  --color-surface-high: #1c2b3c;
+  --color-surface-highest: #273647;
+  --color-surface-bright: #2c3a4c;
+  --color-fg: #d4e4fa;
+  --color-fg-muted: #c7c4d7;
+  --color-outline: #908fa0;
+  --color-outline-variant: #464554;
+  --color-primary: #c0c1ff;
+  --color-primary-strong: #8083ff;
+  --color-on-primary: #0d0096;
+  --color-secondary: #4cd7f6;
+  --color-tertiary: #4edea3;
+  --color-tertiary-strong: #00885d;
+  --color-danger: #ffb4ab;
+  --color-danger-strong: #93000a;
+  --color-warning: #f5b94a;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --animate-shimmer: shimmer 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-primary-strong);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-highest) transparent;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

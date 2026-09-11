@@ -1,0 +1,12 @@
+{
+  // Kept out of the app's tsconfig so `next build` never has to resolve
+  // @playwright/test, which is installed globally rather than as a dependency.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["node"]
+  },
+  "include": ["**/*.ts", "**/*.mjs", "../playwright.config.ts"],
+  "exclude": []
+}

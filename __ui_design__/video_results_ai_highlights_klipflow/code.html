@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KlipFlow Studio — Video Results &amp; AI Highlights</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#000703",
+            "surface-bright": "#2c3a4c",
+            "surface-variant": "#273647",
+            "on-error": "#690005",
+            "secondary-fixed": "#acedff",
+            "secondary": "#4cd7f6",
+            "primary-fixed": "#e1e0ff",
+            "outline": "#908fa0",
+            "surface-tint": "#c0c1ff",
+            "on-secondary": "#003640",
+            "inverse-primary": "#494bd6",
+            "surface": "#051424",
+            "primary-container": "#8083ff",
+            "inverse-surface": "#d4e4fa",
+            "on-surface-variant": "#c7c4d7",
+            "background": "#051424",
+            "on-tertiary": "#003824",
+            "on-secondary-fixed": "#001f26",
+            "error": "#ffb4ab",
+            "on-secondary-fixed-variant": "#004e5c",
+            "primary": "#c0c1ff",
+            "error-container": "#93000a",
+            "surface-dim": "#051424",
+            "on-error-container": "#ffdad6",
+            "on-primary-fixed": "#07006c",
+            "on-tertiary-fixed": "#002113",
+            "secondary-fixed-dim": "#4cd7f6",
+            "tertiary-fixed": "#6ffbbe",
+            "on-surface": "#d4e4fa",
+            "on-primary-container": "#0d0096",
+            "on-background": "#d4e4fa",
+            "on-tertiary-fixed-variant": "#005236",
+            "surface-container-high": "#1c2b3c",
+            "surface-container-low": "#0d1c2d",
+            "surface-container": "#122131",
+            "tertiary": "#4edea3",
+            "tertiary-container": "#00885d",
+            "outline-variant": "#464554",
+            "secondary-container": "#03b5d3",
+            "surface-container-highest": "#273647",
+            "on-primary": "#1000a9",
+            "on-secondary-container": "#00424e",
+            "surface-container-lowest": "#010f1f",
+            "tertiary-fixed-dim": "#4edea3",
+            "primary-fixed-dim": "#c0c1ff",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "inverse-on-surface": "#233143"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.25rem",
+            "space-xs": "0.25rem",
+            "space-2xs": "0.125rem",
+            "inspector-width": "22rem",
+            "space-2xl": "2rem",
+            "space-3xl": "2.5rem",
+            "space-base": "1rem",
+            "space-md": "0.75rem",
+            "gutter-canvas": "1.5rem",
+            "space-xl": "1.5rem",
+            "space-4xl": "3rem",
+            "sidebar-width": "17.5rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "display-lg-mobile": ["Geist"],
+            "body-sm": ["Geist"],
+            "label-code-lg": ["JetBrains Mono"],
+            "headline-lg": ["Geist"],
+            "headline-lg-mobile": ["Geist"],
+            "display-lg": ["Geist"],
+            "label-code-md": ["JetBrains Mono"],
+            "headline-sm": ["Geist"],
+            "label-code-sm": ["JetBrains Mono"],
+            "body-md": ["Geist"],
+            "headline-md": ["Geist"],
+            "body-lg": ["Geist"]
+          },
+          "fontSize": {
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "label-code-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "label-code-md": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-code-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #051424;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1c2b3c;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #273647;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- ================= PERSISTENT LEFT SIDEBAR ================= -->
+<aside class="fixed top-0 left-0 h-screen w-sidebar-width z-40 bg-surface-container-lowest border-r border-outline-variant/30 flex flex-col justify-between p-space-md">
+<!-- Top Brand & Navigation -->
+<div class="flex flex-col gap-space-lg">
+<!-- Brand Logo / Header -->
+<div class="flex items-center justify-between px-space-xs pt-space-xs">
+<div class="text-headline-md font-headline-md tracking-tight text-on-surface font-semibold flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[20px]" data-icon="content_cut">content_cut</span>
+</div>
+<div class="flex flex-col">
+<span class="leading-none text-on-surface font-semibold">KlipFlow</span>
+<span class="text-label-code-sm font-label-code-sm text-outline tracking-wider uppercase mt-1">Creator Studio</span>
+</div>
+</div>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high border border-outline-variant/40 text-label-code-sm font-label-code-sm text-primary">v2.4</span>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<!-- Home -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="home">home</span>
+<span class="text-label-code-md font-label-code-md">Home</span>
+</a>
+<!-- Videos (Active Context Tab) -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg bg-surface-container-high text-primary font-medium hover:bg-surface-container transition-colors duration-150 active:scale-[0.98] border border-outline-variant/30" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="movie" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="text-label-code-md font-label-code-md">Videos</span>
+<span class="ml-auto w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+</a>
+<!-- Clips -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_cut">content_cut</span>
+<span class="text-label-code-md font-label-code-md">Clips</span>
+</a>
+<!-- Templates -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="dashboard_customize">dashboard_customize</span>
+<span class="text-label-code-md font-label-code-md">Templates</span>
+</a>
+<!-- Brand Kit -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="palette">palette</span>
+<span class="text-label-code-md font-label-code-md">Brand Kit</span>
+</a>
+<!-- Usage -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="data_usage">data_usage</span>
+<span class="text-label-code-md font-label-code-md">Usage</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-space-md py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span class="text-label-code-md font-label-code-md">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Sidebar Section (Quota, Docs, User) -->
+<div class="flex flex-col gap-space-sm pt-space-md border-t border-outline-variant/30">
+<!-- Quota Meter Card -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-3">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[15px]" data-icon="bolt">bolt</span>
+<span class="text-label-code-md font-label-code-md text-on-surface">Creator Plan</span>
+</div>
+<span class="text-label-code-sm font-label-code-sm text-outline">45/100m</span>
+</div>
+<!-- Progress bar -->
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 45%;"></div>
+</div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-outline-variant/20">
+<span class="text-body-sm font-body-sm text-on-surface-variant">55 mins remaining</span>
+<button class="text-label-code-sm font-label-code-sm text-primary hover:underline">Upgrade</button>
+</div>
+</div>
+<!-- Documentation Link -->
+<a class="flex items-center gap-2.5 px-space-md py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span class="text-label-code-md font-label-code-md">Documentation</span>
+</a>
+<!-- Profile Section -->
+<div class="flex items-center justify-between p-2 rounded-xl bg-surface-container border border-outline-variant/30">
+<div class="flex items-center gap-2.5">
+<div class="relative w-8 h-8 rounded-full overflow-hidden border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="Close up portrait photograph of Alex Morgan, a digital video creator with modern rim lighting in an obsidian tech studio setting, clean sharp focus, cinematic dark aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyeBqKySP33qnWEbpPW-NVsPWm_DtMEWc7V9RI0mTMML0PEQucUzT5gxy8aA9dwXGqbGHooII_GBkoI95PstbTrIIlhsBARoND3l7w8B_K5pybXR8MRR_4h7VdqqBihwnFgf4fMalKKPCVQVosP7vz90NUmgEE4mpvQ9li-7GpZ9yWg5spujYuAOlzhz8opc2-PHWxD9D-WiToeFPsqmmHXdNbBw32S-o_99oM-sPHpTUuELQcpCUO"/>
+</div>
+<div class="flex flex-col">
+<span class="text-body-sm font-body-sm font-medium text-on-surface leading-tight">Alex Morgan</span>
+<span class="text-label-code-sm font-label-code-sm text-outline leading-tight">Pro Member</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- ================= MAIN WORKSPACE CANVAS ================= -->
+<div class="ml-sidebar-width min-h-screen flex flex-col">
+<!-- TOP APP BAR -->
+<header class="sticky top-0 z-30 w-full bg-surface border-b border-outline-variant/30 px-space-xl py-space-sm h-14 flex items-center justify-between">
+<!-- Breadcrumbs & Meta Badges -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 text-body-sm font-body-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_back">arrow_back</span>
+<span>Videos</span>
+</a>
+<span class="text-outline">/</span>
+<span class="text-on-surface font-medium truncate max-w-xs md:max-w-md">Podcast Episode #42: Future of AI Hardware</span>
+</div>
+<!-- Duration Badge -->
+<span class="px-2 py-0.5 rounded bg-surface-container border border-outline-variant/40 text-label-code-sm font-label-code-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="schedule">schedule</span>
+          48:32
+        </span>
+<!-- AI Highlights Badge -->
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high border border-tertiary/40 text-label-code-sm font-label-code-sm text-tertiary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span>
+          16 AI moments found
+        </span>
+</div>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-2.5">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="autorenew">autorenew</span>
+<span>Reanalyze</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Export All">
+<span class="material-symbols-outlined text-[18px]" data-icon="ios_share">ios_share</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Settings">
+<span class="material-symbols-outlined text-[18px]" data-icon="tune">tune</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="More">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_horiz">more_horiz</span>
+</button>
+<div class="h-4 w-px bg-outline-variant/40 mx-1"></div>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary-container hover:opacity-90 active:scale-[0.98] transition-all font-medium text-body-sm font-body-sm shadow-[0_0_16px_rgba(99,102,241,0.35)]">
+<span class="material-symbols-outlined text-[16px]" data-icon="auto_awesome">auto_awesome</span>
+<span>Create Selected Clips</span>
+</button>
+</div>
+</header>
+<!-- WORKSPACE TWO-COLUMN SPLIT -->
+<main class="flex-1 grid grid-cols-12 gap-0 overflow-hidden">
+<!-- LEFT SIDE: 16:9 Video Canvas & Scrubber Timeline (Col 7) -->
+<section class="col-span-12 xl:col-span-7 p-gutter-canvas flex flex-col gap-4 border-r border-outline-variant/30 overflow-y-auto">
+<!-- Video Player Frame Container -->
+<div class="relative w-full aspect-video rounded-xl bg-surface-container-lowest border border-outline-variant/40 overflow-hidden shadow-2xl flex flex-col justify-between group">
+<!-- Mock Video Background -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-95 transition-opacity" data-alt="Professional studio podcast production interview setting with two tech experts wearing discrete wireless microphones, neon blue ambient lighting in dark studio background, cinematic depth of field, high production value 16:9 video frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGh3u0p10a8SFpWmTlHVxhzqizlVFGGY4uNEqJdChCKKzUMYAo7XVNGNHiiyEB25T0-aSqS7FNRftRvs4H-WDBjdZUfl5ZnaDBQ5EF8Qlvj_Xp24DLomWaBgFmM6lCZ3DlvEcGbWZ84g1XXwgfZ67mZj-pbyu5JtX44iljz18eQZ_Q2jMrBa_0x-SQB6zApFX4H42C1LhloOD5G-deNgnB69SR8EExCVob4SkGMWsnx4qc8PHq7T9w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-surface-dim/40 pointer-events-none"></div>
+</div>
+<!-- Top Overlay HUD: Status & Res Badge -->
+<div class="relative z-10 flex items-center justify-between p-3 pointer-events-none">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/40 text-label-code-sm font-label-code-sm text-tertiary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                ACTIVE HOOK PREVIEW
+              </span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/40 text-label-code-sm font-label-code-sm text-on-surface-variant font-medium">1080p 60fps</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/40 text-label-code-sm font-label-code-sm text-on-surface">Auto-Framing: Speaker Active</span>
+</div>
+</div>
+<!-- Center Play/Pause Micro Interaction -->
+<div class="relative z-10 flex items-center justify-center pointer-events-none">
+<button class="pointer-events-auto w-14 h-14 rounded-full bg-surface-container-high/70 backdrop-blur-md border border-outline-variant/60 flex items-center justify-center text-on-surface hover:scale-110 hover:bg-primary-container hover:text-on-primary-container transition-all shadow-xl">
+<span class="material-symbols-outlined text-[32px] translate-x-0.5" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Bottom Control Bar -->
+<div class="relative z-10 p-3 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/70 to-transparent flex flex-col gap-2">
+<!-- Mini Scrubber Track within Player -->
+<div class="relative w-full h-1.5 bg-surface-container-highest/60 rounded-full cursor-pointer group/bar">
+<!-- AI highlight segments on player track -->
+<div class="absolute top-0 bottom-0 left-[29.8%] w-[1.8%] bg-tertiary/70 rounded-full"></div>
+<div class="absolute top-0 bottom-0 left-[56%] w-[1.7%] bg-tertiary/70 rounded-full"></div>
+<div class="absolute top-0 bottom-0 left-[11.7%] w-[1.3%] bg-primary/70 rounded-full"></div>
+<!-- Progress fill -->
+<div class="absolute top-0 bottom-0 left-0 bg-primary-container rounded-full" style="width: 29.8%;"></div>
+<div class="absolute top-1/2 -translate-y-1/2 left-[29.8%] w-3 h-3 rounded-full bg-primary border-2 border-surface shadow-md"></div>
+</div>
+<!-- Controls row -->
+<div class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-3">
+<button class="hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="pause">pause</span>
+</button>
+<button class="hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="replay_10">replay_10</span>
+</button>
+<button class="hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="forward_10">forward_10</span>
+</button>
+<div class="flex items-center gap-1.5 text-label-code-md font-label-code-md text-on-surface ml-1">
+<span class="text-primary font-medium">00:14:28</span>
+<span class="text-outline">/</span>
+<span class="text-on-surface-variant">00:48:32</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<!-- Volume -->
+<button class="hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="volume_up">volume_up</span>
+</button>
+<!-- Speed Toggle -->
+<div class="flex items-center bg-surface-container-low border border-outline-variant/40 rounded px-1.5 py-0.5 text-label-code-sm font-label-code-sm text-on-surface">
+<button class="px-1 text-primary font-semibold">1x</button>
+<span class="text-outline-variant/50">|</span>
+<button class="px-1 hover:text-on-surface text-on-surface-variant">1.25x</button>
+<span class="text-outline-variant/50">|</span>
+<button class="px-1 hover:text-on-surface text-on-surface-variant">1.5x</button>
+</div>
+<!-- Aspect Toggle Helper -->
+<span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/40 text-label-code-sm font-label-code-sm text-on-surface-variant">16:9 Raw</span>
+<!-- Fullscreen -->
+<button class="hover:text-on-surface transition-colors flex items-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- FULL-SOURCE INTERACTIVE TIMELINE & WAVEFORM SCRUBBER -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-4 flex flex-col gap-3">
+<!-- Timeline Header / Meta Info -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="graphic_eq">graphic_eq</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Audio Intelligence Timeline</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-label-code-sm font-label-code-sm text-outline border border-outline-variant/30">Auto Silence Removed</span>
+</div>
+<!-- Virality Heat Legend -->
+<div class="flex items-center gap-3 text-label-code-sm font-label-code-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-on-surface-variant">Virality 90+ (High)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-on-surface-variant">Virality 80-89 (Strong)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="text-on-surface-variant">Passive audio</span>
+</div>
+</div>
+</div>
+<!-- The Master Timeline Visualizer -->
+<div class="relative bg-surface-container-lowest rounded-lg border border-outline-variant/30 p-3 pt-6 pb-2 select-none overflow-hidden">
+<!-- Timecode Ruler Ticks -->
+<div class="absolute top-1 left-3 right-3 flex justify-between text-label-code-sm font-label-code-sm text-outline border-b border-outline-variant/20 pb-1">
+<span>00:00</span>
+<span>10:00</span>
+<span>20:00</span>
+<span>30:00</span>
+<span>40:00</span>
+<span>48:32</span>
+</div>
+<!-- Heat Zones & Selection Layer -->
+<div class="relative h-16 w-full flex items-center mt-2">
+<!-- Background Waveform bars simulation -->
+<div class="absolute inset-0 flex items-center justify-between gap-[2px] opacity-40">
+<!-- Repeated simulated waveform bars -->
+<div class="w-1 h-3 bg-outline rounded-full"></div>
+<div class="w-1 h-5 bg-outline rounded-full"></div>
+<div class="w-1 h-2 bg-outline rounded-full"></div>
+<div class="w-1 h-8 bg-outline rounded-full"></div>
+<div class="w-1 h-4 bg-outline rounded-full"></div>
+<div class="w-1 h-6 bg-outline rounded-full"></div>
+<!-- 05:40 moment (Card 3: 86 Strong) -->
+<div class="w-1 h-10 bg-primary rounded-full"></div>
+<div class="w-1 h-12 bg-primary rounded-full"></div>
+<div class="w-1 h-9 bg-primary rounded-full"></div>
+<div class="w-1 h-4 bg-outline rounded-full"></div>
+<div class="w-1 h-3 bg-outline rounded-full"></div>
+<div class="w-1 h-7 bg-outline rounded-full"></div>
+<div class="w-1 h-5 bg-outline rounded-full"></div>
+<!-- 14:23 to 15:11 moment (Card 1: 96 Exceptional) ACTIVE -->
+<div class="w-1 h-14 bg-tertiary rounded-full"></div>
+<div class="w-1 h-16 bg-tertiary rounded-full"></div>
+<div class="w-1 h-12 bg-tertiary rounded-full"></div>
+<div class="w-1 h-15 bg-tertiary rounded-full"></div>
+<div class="w-1 h-11 bg-tertiary rounded-full"></div>
+<div class="w-1 h-4 bg-outline rounded-full"></div>
+<div class="w-1 h-2 bg-outline rounded-full"></div>
+<div class="w-1 h-6 bg-outline rounded-full"></div>
+<div class="w-1 h-3 bg-outline rounded-full"></div>
+<div class="w-1 h-8 bg-outline rounded-full"></div>
+<!-- 27:14 moment (Card 2: 92 Exceptional) -->
+<div class="w-1 h-14 bg-tertiary rounded-full"></div>
+<div class="w-1 h-13 bg-tertiary rounded-full"></div>
+<div class="w-1 h-10 bg-tertiary rounded-full"></div>
+<div class="w-1 h-5 bg-outline rounded-full"></div>
+<div class="w-1 h-3 bg-outline rounded-full"></div>
+<div class="w-1 h-7 bg-outline rounded-full"></div>
+<div class="w-1 h-4 bg-outline rounded-full"></div>
+<!-- 39:10 moment (Card 4: 82 Strong) -->
+<div class="w-1 h-9 bg-primary rounded-full"></div>
+<div class="w-1 h-11 bg-primary rounded-full"></div>
+<div class="w-1 h-10 bg-primary rounded-full"></div>
+<div class="w-1 h-4 bg-outline rounded-full"></div>
+<div class="w-1 h-5 bg-outline rounded-full"></div>
+<div class="w-1 h-2 bg-outline rounded-full"></div>
+</div>
+<!-- AI Virality Heat Zones Highlight Markers -->
+<!-- Moment 1 (05:40) -->
+<div class="absolute left-[11.7%] w-[2.2%] h-full bg-primary/20 border-x border-primary/60 rounded flex items-center justify-center">
+<span class="text-[9px] font-mono text-primary font-bold">86</span>
+</div>
+<!-- ACTIVE SELECTION REGION: Card 1 (00:14:23 – 00:15:11) -->
+<div class="absolute left-[29.6%] w-[4.4%] h-full bg-tertiary/20 border-2 border-tertiary rounded shadow-[0_0_15px_rgba(78,222,163,0.3)] z-10 flex flex-col justify-between p-0.5">
+<div class="flex items-center justify-between">
+<span class="w-1 h-2 bg-tertiary rounded-sm"></span>
+<span class="text-[9px] font-mono font-bold text-on-tertiary-container bg-tertiary px-1 rounded">96</span>
+<span class="w-1 h-2 bg-tertiary rounded-sm"></span>
+</div>
+<div class="text-center text-[8px] font-mono font-bold text-tertiary uppercase tracking-tighter">Active</div>
+</div>
+<!-- Moment 3 (27:14) -->
+<div class="absolute left-[56.1%] w-[3.5%] h-full bg-tertiary/20 border-x border-tertiary/60 rounded flex items-center justify-center">
+<span class="text-[9px] font-mono text-tertiary font-bold">92</span>
+</div>
+<!-- Moment 4 (39:10) -->
+<div class="absolute left-[80.7%] w-[2.8%] h-full bg-primary/20 border-x border-primary/60 rounded flex items-center justify-center">
+<span class="text-[9px] font-mono text-primary font-bold">82</span>
+</div>
+<!-- Scrubber Playhead (at 00:14:28) -->
+<div class="absolute left-[30.2%] h-full flex flex-col items-center z-20 pointer-events-none">
+<div class="w-2.5 h-2.5 rotate-45 bg-primary-container shadow-md -mb-1"></div>
+<div class="w-0.5 h-full bg-on-surface shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+</div>
+</div>
+<!-- Active Range Footer Label -->
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-outline-variant/20 text-label-code-sm font-label-code-sm">
+<span class="text-outline">Active Selection: <strong class="text-tertiary font-medium">00:14:23 – 00:15:11 (48s)</strong></span>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="zoom_in">zoom_in</span> Zoom
+                </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-icon="fit_screen">fit_screen</span> Fit
+                </button>
+</div>
+</div>
+</div>
+<!-- Timeline Quick Tools -->
+<div class="grid grid-cols-3 gap-2 text-body-sm font-body-sm">
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="graphic_eq">graphic_eq</span>
+<div>
+<p class="text-label-code-sm font-label-code-sm text-outline">Pacing</p>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">154 WPM (Optimal)</p>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container border border-outline-variant/20">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="voice_chat">voice_chat</span>
+<div>
+<p class="text-label-code-sm font-label-code-sm text-outline">Active Speakers</p>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">2 Detected (Diaried)</p>
+</div>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<p class="text-label-code-sm font-label-code-sm text-outline">Smart Cropping</p>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">Face-Follow Active</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT SIDE: Best Moments AI Candidates List (Col 5) -->
+<section class="col-span-12 xl:col-span-5 flex flex-col h-full bg-surface-container-lowest/50">
+<!-- Header & Filter Bar -->
+<div class="p-space-lg border-b border-outline-variant/30 flex flex-col gap-3 bg-surface sticky top-14 z-20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="text-headline-md font-headline-md text-on-surface">Best Moments</h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high border border-outline-variant/40 text-label-code-sm font-label-code-sm text-primary">16 candidates</span>
+</div>
+<!-- Sort Dropdown -->
+<div class="flex items-center gap-1.5 text-body-sm font-body-sm bg-surface-container-low border border-outline-variant/30 rounded-lg px-2.5 py-1 text-on-surface cursor-pointer hover:border-outline transition-colors">
+<span class="text-outline text-label-code-sm font-label-code-sm">Sort:</span>
+<span class="font-medium">Best Score</span>
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-label-code-md font-label-code-md">
+<button class="px-3 py-1 rounded-full bg-surface-container-high text-primary border border-primary/40 font-medium">
+              All (16)
+            </button>
+<button class="px-3 py-1 rounded-full bg-surface-container text-tertiary hover:bg-surface-container-high transition-colors border border-tertiary/20 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+              Exceptional 90+ (4)
+            </button>
+<button class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+              Strong 80-89 (7)
+            </button>
+<button class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+              Good 70-79 (5)
+            </button>
+</div>
+</div>
+<!-- Scrollable Candidates Cards Container -->
+<div class="flex-1 p-space-lg overflow-y-auto space-y-4 pb-28">
+<!-- CARD 1: ACTIVE / PLAYING STATE (EXCEPTIONAL) -->
+<div class="p-4 rounded-xl bg-surface-container-high border-2 border-tertiary/80 shadow-[0_0_24px_-4px_rgba(78,222,163,0.2)] transition-all relative group">
+<!-- Top Card Row: Selection Checkbox, Score Badge, Meta -->
+<div class="flex items-start justify-between gap-3 mb-2.5">
+<div class="flex items-center gap-3">
+<!-- Checkbox Checked -->
+<label class="relative flex items-center justify-center cursor-pointer">
+<input checked="" class="w-4 h-4 rounded bg-tertiary border-tertiary text-on-tertiary-container focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Score Badge (Exceptional) -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-container-lowest border border-tertiary text-tertiary font-label-code-md font-label-code-md font-semibold shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span>96</span>
+<span class="text-[9px] uppercase tracking-wider px-1 bg-tertiary/20 rounded font-bold">EXCEPTIONAL</span>
+</div>
+</div>
+<!-- Timing & Duration -->
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-tertiary font-medium">00:14:23 – 00:15:11</span>
+<span>•</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container border border-outline-variant/30 text-on-surface">48 sec</span>
+</div>
+</div>
+<!-- Title -->
+<h3 class="text-headline-sm font-headline-sm font-semibold text-on-surface mb-1.5 group-hover:text-primary transition-colors">
+              Why 99% of AI Startups Will Die in 2 Years
+            </h3>
+<!-- AI Detailed Score Diagnostics -->
+<div class="flex items-center gap-3 text-label-code-sm font-label-code-sm text-outline mb-3">
+<span class="flex items-center gap-1">
+<span class="text-tertiary">Hook Score:</span> <strong class="text-on-surface">98/100</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="text-tertiary">Engagement:</span> <strong class="text-on-surface">95/100</strong>
+</span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="text-outline">Virality Potential:</span> <strong class="text-secondary font-semibold">Very High</strong>
+</span>
+</div>
+<!-- AI Rationale Quote Box -->
+<div class="bg-surface-container-low/80 border border-outline-variant/30 rounded-lg p-2.5 mb-3">
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-primary mb-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="auto_awesome">auto_awesome</span>
+<span>AI Insight</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant italic">
+                "High-conviction contrarian hook, tight pacing, natural loop point. Ideal for TikTok &amp; Reels."
+              </p>
+</div>
+<!-- Transcript Snippet -->
+<div class="mb-4">
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed bg-surface-container-lowest/60 p-2 rounded border border-outline-variant/20 font-mono text-[12px]">
+                "The biggest mistake we made when growing the company was hiring too quickly without verifying if the AI foundation model could actually scale..."
+              </p>
+</div>
+<!-- Action Row -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-label-code-sm font-label-code-sm text-on-surface-variant border border-outline-variant/20">Auto 9:16 Ready</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-label-code-sm font-label-code-sm text-on-surface-variant border border-outline-variant/20">Captions Synced</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface hover:bg-surface-bright transition-colors text-body-sm font-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]" data-icon="visibility">visibility</span>
+<span>Preview Clip</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container hover:opacity-90 font-medium text-body-sm font-body-sm flex items-center gap-1 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[15px]" data-icon="open_in_new">open_in_new</span>
+<span>Open in Editor</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 2: EXCEPTIONAL (CHECKED) -->
+<div class="p-4 rounded-xl bg-surface-container border border-outline-variant/40 hover:border-tertiary/60 transition-all group">
+<!-- Top Card Row -->
+<div class="flex items-start justify-between gap-3 mb-2.5">
+<div class="flex items-center gap-3">
+<label class="relative flex items-center justify-center cursor-pointer">
+<input checked="" class="w-4 h-4 rounded bg-tertiary border-tertiary text-on-tertiary-container focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Score Badge -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-container-lowest border border-tertiary/70 text-tertiary font-label-code-md font-label-code-md font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>92</span>
+<span class="text-[9px] uppercase tracking-wider px-1 bg-tertiary/20 rounded font-bold">EXCEPTIONAL</span>
+</div>
+</div>
+<!-- Timing -->
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span>00:27:14 – 00:28:06</span>
+<span>•</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface">52 sec</span>
+</div>
+</div>
+<!-- Title -->
+<h3 class="text-headline-sm font-headline-sm font-semibold text-on-surface mb-1.5 group-hover:text-primary transition-colors">
+              The Untold Cost of Training Custom LLMs
+            </h3>
+<!-- AI Rationale Quote Box -->
+<div class="bg-surface-container-low/60 border border-outline-variant/30 rounded-lg p-2.5 mb-2.5">
+<p class="text-body-sm font-body-sm text-on-surface-variant italic">
+                "Clear tangible numbers revealed with dramatic pause, strong authority hook."
+              </p>
+</div>
+<!-- Transcript Snippet -->
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed bg-surface-container-lowest/40 p-2 rounded border border-outline-variant/20 font-mono text-[12px] mb-3">
+              "Everyone looks at the API pricing, but when you train your own cluster, the electricity bill alone will shock you..."
+            </p>
+<!-- Actions -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+<span class="text-label-code-sm font-label-code-sm text-outline">Hook: 94/100 • Retention: 91%</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors text-body-sm font-body-sm">
+                  Preview
+                </button>
+<button class="px-3 py-1 rounded bg-surface-container-highest border border-outline-variant/40 text-primary hover:bg-primary hover:text-on-primary font-medium text-body-sm font-body-sm transition-colors">
+                  Create Clip
+                </button>
+</div>
+</div>
+</div>
+<!-- CARD 3: STRONG (UNCHECKED) -->
+<div class="p-4 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary/60 transition-all group opacity-90 hover:opacity-100">
+<!-- Top Card Row -->
+<div class="flex items-start justify-between gap-3 mb-2.5">
+<div class="flex items-center gap-3">
+<label class="relative flex items-center justify-center cursor-pointer">
+<input class="w-4 h-4 rounded bg-surface-container-lowest border-outline-variant text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Score Badge (Strong) -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-container-lowest border border-primary/60 text-primary font-label-code-md font-label-code-md font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>86</span>
+<span class="text-[9px] uppercase tracking-wider px-1 bg-primary/20 rounded font-bold">STRONG</span>
+</div>
+</div>
+<!-- Timing -->
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span>00:05:40 – 00:06:18</span>
+<span>•</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface">38 sec</span>
+</div>
+</div>
+<!-- Title -->
+<h3 class="text-headline-sm font-headline-sm font-semibold text-on-surface mb-1.5 group-hover:text-primary transition-colors">
+              How We Scaled to 100k Users with Zero Ad Spend
+            </h3>
+<!-- AI Rationale -->
+<div class="bg-surface-container-low/60 border border-outline-variant/30 rounded-lg p-2.5 mb-2.5">
+<p class="text-body-sm font-body-sm text-on-surface-variant italic">
+                "Actionable growth playbook breakdown with step-by-step framework."
+              </p>
+</div>
+<!-- Transcript Snippet -->
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed bg-surface-container-lowest/40 p-2 rounded border border-outline-variant/20 font-mono text-[12px] mb-3">
+              "We didn't spend a single dollar on meta ads. Instead we leveraged algorithmic short-form clips..."
+            </p>
+<!-- Actions -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+<span class="text-label-code-sm font-label-code-sm text-outline">Hook: 88/100 • Retention: 84%</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors text-body-sm font-body-sm">
+                  Preview
+                </button>
+<button class="px-3 py-1 rounded bg-surface-container-highest border border-outline-variant/40 text-primary hover:bg-primary hover:text-on-primary font-medium text-body-sm font-body-sm transition-colors">
+                  Create Clip
+                </button>
+</div>
+</div>
+</div>
+<!-- CARD 4: STRONG (UNCHECKED) -->
+<div class="p-4 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary/60 transition-all group opacity-85 hover:opacity-100">
+<!-- Top Card Row -->
+<div class="flex items-start justify-between gap-3 mb-2.5">
+<div class="flex items-center gap-3">
+<label class="relative flex items-center justify-center cursor-pointer">
+<input class="w-4 h-4 rounded bg-surface-container-lowest border-outline-variant text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer" type="checkbox"/>
+</label>
+<!-- Score Badge (Strong) -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-surface-container-lowest border border-primary/50 text-primary font-label-code-md font-label-code-md font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>82</span>
+<span class="text-[9px] uppercase tracking-wider px-1 bg-primary/20 rounded font-bold">STRONG</span>
+</div>
+</div>
+<!-- Timing -->
+<div class="flex items-center gap-1.5 text-label-code-sm font-label-code-sm text-on-surface-variant">
+<span>00:39:10 – 00:40:02</span>
+<span>•</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface">52 sec</span>
+</div>
+</div>
+<!-- Title -->
+<h3 class="text-headline-sm font-headline-sm font-semibold text-on-surface mb-1.5 group-hover:text-primary transition-colors">
+              The Hardware Bottleneck Nobody is Talking About
+            </h3>
+<!-- Transcript Snippet -->
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed bg-surface-container-lowest/40 p-2 rounded border border-outline-variant/20 font-mono text-[12px] mb-3">
+              "Memory bandwidth is the real silent killer. HBM3 availability is choked for the next 18 months..."
+            </p>
+<!-- Actions -->
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+<span class="text-label-code-sm font-label-code-sm text-outline">Hook: 83/100 • Retention: 80%</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors text-body-sm font-body-sm">
+                  Preview
+                </button>
+<button class="px-3 py-1 rounded bg-surface-container-highest border border-outline-variant/40 text-primary hover:bg-primary hover:text-on-primary font-medium text-body-sm font-body-sm transition-colors">
+                  Create Clip
+                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= FLOATING ACTION BATCH BAR ================= -->
+<div class="fixed bottom-6 right-6 xl:right-10 z-50">
+<div class="bg-surface-container-high/90 backdrop-blur-xl border border-primary/40 rounded-2xl p-2.5 px-4 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.8)] flex items-center gap-4">
+<!-- Selection Counter Badge -->
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary text-label-code-sm font-label-code-sm font-bold">
+            2
+          </div>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">clips selected</span>
+</div>
+<div class="h-4 w-px bg-outline-variant/40"></div>
+<!-- Quick Batch Presets -->
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest border border-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-[15px]" data-icon="subtitles">subtitles</span>
+<span>Batch Auto-Caption</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest border border-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-[15px]" data-icon="crop_portrait">crop_portrait</span>
+<span>Ratio (9:16)</span>
+</button>
+</div>
+<div class="h-4 w-px bg-outline-variant/40"></div>
+<!-- Primary Generation Action -->
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-container text-on-primary-container hover:opacity-95 font-medium text-body-sm font-body-sm shadow-[0_0_20px_rgba(99,102,241,0.4)] active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="bolt">bolt</span>
+<span>Generate 2 Clips (Batch)</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Clear Link -->
+<button class="text-label-code-sm font-label-code-sm text-outline hover:text-on-surface transition-colors px-1" title="Clear selection">
+            Clear
+          </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
