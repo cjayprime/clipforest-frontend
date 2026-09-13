@@ -18,7 +18,7 @@ export default function VideosPage() {
       <div className="space-y-6">
         <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-fg">Videos</h1>
+            <h1 className="text-3xl font-medium tracking-tight text-fg">Videos</h1>
             <p className="mt-1 text-sm text-fg-muted">Every source you’ve added, with its processing status.</p>
           </div>
           <Segmented

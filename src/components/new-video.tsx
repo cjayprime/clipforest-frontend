@@ -104,7 +104,7 @@ export function NewVideoPanel() {
               Import video
             </Button>
           </div>
-          <p className="flex items-center gap-2 font-mono text-[10px] text-outline">
+          <p className="flex items-center gap-2 font-mono text-[11px] text-outline">
             <CircleCheck className="size-3.5 text-tertiary" aria-hidden />
             Transcribes speech, finds and ranks moments, then renders 9:16 clips on demand.
           </p>
@@ -112,7 +112,7 @@ export function NewVideoPanel() {
 
         <div className="relative flex items-center justify-center lg:flex-col" aria-hidden>
           <div className="h-px w-full bg-outline-variant/30 lg:h-full lg:w-px" />
-          <span className="absolute rounded-full border border-outline-variant/40 bg-surface px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-outline">or</span>
+          <span className="absolute rounded-full border border-outline-variant/40 bg-surface px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-outline">or</span>
         </div>
 
         <div
@@ -137,7 +137,7 @@ export function NewVideoPanel() {
                 browse files
               </button>
             </p>
-            <p className="font-mono text-[10px] text-outline">
+            <p className="font-mono text-[11px] text-outline">
               {extensions.map((x) => x.toUpperCase()).join(', ')} · up to {bytes(maxBytes)} · {maxHours} h max
             </p>
           </div>

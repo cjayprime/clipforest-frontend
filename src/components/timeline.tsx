@@ -32,7 +32,7 @@ export function Timeline({
     <div className="rounded-xl border border-outline-variant/30 bg-surface-low p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-sm font-semibold text-fg">Moments timeline</h3>
-        <div className="flex items-center gap-3 font-mono text-[10px] text-outline">
+        <div className="flex items-center gap-3 font-mono text-[11px] text-outline">
           <span className="flex items-center gap-1.5">
             <span className="size-2 rounded-full bg-tertiary" aria-hidden /> 85+
           </span>
@@ -45,7 +45,7 @@ export function Timeline({
         </div>
       </div>
       <div className="relative select-none rounded-lg border border-outline-variant/30 bg-surface-lowest px-3 pb-2 pt-6">
-        <div className="absolute inset-x-3 top-1 flex justify-between font-mono text-[10px] text-outline" aria-hidden>
+        <div className="absolute inset-x-3 top-1 flex justify-between font-mono text-[11px] text-outline" aria-hidden>
           {ticks.map((t, i) => (
             <span key={i}>{timecode(t)}</span>
           ))}
@@ -65,14 +65,15 @@ export function Timeline({
                 }}
                 aria-label={`${c.title}, score ${c.score}, ${timecode(c.startMs)} to ${timecode(c.endMs)}`}
                 aria-pressed={active}
+                title={`${c.title} · ${c.score}/100 · ${timecode(c.startMs)}–${timecode(c.endMs)}`}
                 className={clsx(
-                  'absolute top-0 flex h-full min-w-2 items-center justify-center rounded border font-mono text-[9px] font-bold transition-all',
+                  'moment-marker absolute top-0 flex h-full min-w-2 items-center justify-center rounded border font-mono text-[11px] font-bold transition-all',
                   tier.tone === 'tertiary' ? 'border-tertiary/70 bg-tertiary/20 text-tertiary' : tier.tone === 'primary' ? 'border-primary/60 bg-primary/20 text-primary' : 'border-outline/50 bg-outline/15 text-outline',
                   active && 'z-10 border-2 shadow-[0_0_15px_rgba(78,222,163,0.35)]',
                 )}
                 style={{ left: pct(c.startMs), width: `max(0.5rem, ${(c.durationMs / Math.max(1, durationMs)) * 100}%)` }}
               >
-                <span className="hidden sm:inline">{c.score}</span>
+                <span className="moment-score">{c.score}</span>
               </button>
             );
           })}

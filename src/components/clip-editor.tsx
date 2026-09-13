@@ -33,7 +33,7 @@ function TimeField({ label, value, onChange, max }: { label: string; value: numb
   const nudge = (d: number) => onChange(Math.max(0, Math.min(max, value + d)));
   return (
     <div className="space-y-1">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-outline">{label}</span>
+      <span className="font-mono text-[11px] uppercase tracking-wider text-outline">{label}</span>
       <div className="flex items-center gap-1">
         <button type="button" className="rounded-md border border-outline-variant/40 p-2 text-fg-muted hover:text-fg" onClick={() => nudge(-500)} aria-label={`${label} half a second earlier`}>
           <Minus className="size-3.5" />
@@ -178,21 +178,17 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
         </div>
         <div className="flex items-center gap-2">
           {r.downloadUrl && (
-            <a href={r.downloadUrl} download>
-              <Button variant="primary" size="sm" icon={<Download className="size-4" />}>
-                Download MP4
-              </Button>
-            </a>
+            <a href={r.downloadUrl} download className="inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-primary px-3 text-xs font-medium text-on-primary shadow-[0_3px_0_#a0bc64] hover:bg-[#dcff9b]"><Download className="size-4" aria-hidden />Download MP4</a>
           )}
           <Button variant="danger" size="sm" icon={<Trash2 className="size-4" />} onClick={remove} loading={busy === 'delete'} aria-label="Delete clip" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr_360px]">
+      <div className="clip-workspace">
         {/* Settings */}
-        <aside className="space-y-6 border-outline-variant/30 bg-surface-low p-4 xl:border-r" aria-label="Clip settings">
+        <aside className="space-y-6 border-outline-variant/30 bg-surface-low p-5 md:border-r" aria-label="Clip settings">
           <div className="space-y-2">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-outline">Title (not burned in)</span>
+            <span className="font-mono text-[11px] uppercase tracking-wider text-outline">Title (not burned in)</span>
             <div className="flex gap-2">
               <input className={inputClass} value={title} maxLength={120} onChange={(e) => setTitle(e.target.value)} aria-label="Clip title" />
               <Button size="sm" className="h-10" onClick={() => void saveTitle()} disabled={!title.trim() || title === r.title} loading={busy === 'title'}>
@@ -202,7 +198,7 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
           </div>
 
           <div className="space-y-2">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-outline">Framing</span>
+            <span className="font-mono text-[11px] uppercase tracking-wider text-outline">Framing</span>
             <div role="radiogroup" aria-label="Framing mode" className="grid gap-2">
               {(['auto', 'center', 'fit'] as FramingMode[]).map((m) => {
                 const Icon = FRAMING_ICON[m];
@@ -233,8 +229,8 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-outline">Captions</span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-outline">Captions</span>
               <Toggle checked={captionsOn} onChange={setCaptionsOn} label="Burn in captions" />
             </div>
             <div role="radiogroup" aria-label="Caption style" className={clsx('grid grid-cols-2 gap-2', !captionsOn && 'pointer-events-none opacity-40')}>
@@ -261,7 +257,7 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
         </aside>
 
         {/* Preview */}
-        <section className="flex flex-col items-center gap-4 bg-[radial-gradient(circle,rgba(144,143,160,0.12)_1px,transparent_1px)] [background-size:24px_24px] p-6" aria-label="Preview">
+        <section className="flex flex-col items-center gap-4 bg-[radial-gradient(circle,rgba(157,168,160,0.12)_1px,transparent_1px)] [background-size:24px_24px] p-6" aria-label="Preview">
           {r.status === 'COMPLETED' && r.outputUrl ? (
             <video
               key={r.outputUrl}
@@ -269,7 +265,7 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
               poster={r.thumbnailUrl ?? undefined}
               controls
               playsInline
-              className="aspect-[9/16] h-[min(72vh,680px)] rounded-2xl border-2 border-outline-variant/50 bg-black shadow-2xl"
+              className="clip-preview rounded-2xl border-2 border-outline-variant/50 bg-black shadow-2xl"
               onError={refetch}
             />
           ) : r.status === 'FAILED' ? (
@@ -277,10 +273,10 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
               <ErrorPanel title="This render failed" error={r.error} onRetry={() => void retry()} retrying={busy === 'retry'} />
             </div>
           ) : (
-            <div className="flex aspect-[9/16] h-[min(72vh,680px)] flex-col items-center justify-center gap-4 rounded-2xl border-2 border-outline-variant/50 bg-surface-lowest p-8 text-center">
+            <div className="flex clip-preview flex-col items-center justify-center gap-4 rounded-2xl border-2 border-outline-variant/50 bg-surface-lowest p-8 text-center">
               <WandSparkles className="size-8 animate-pulse text-primary" aria-hidden />
               <p className="text-lg font-semibold text-fg">{RENDER_STATUS_LABEL[r.status]}…</p>
-              <ProgressBar value={r.progress} label={`${RENDER_STATUS_LABEL[r.status]} ${r.progress}%`} className="w-48" />
+              <ProgressBar value={r.progress} label={`${RENDER_STATUS_LABEL[r.status]} ${r.progress}%`} className="w-full max-w-48" />
               <p className="tabular font-mono text-sm text-fg-muted" aria-live="polite">
                 {r.progress}%
               </p>
@@ -295,9 +291,9 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
         </section>
 
         {/* Trim, transcript, versions */}
-        <aside className="space-y-6 border-outline-variant/30 bg-surface-low p-4 xl:border-l" aria-label="Trim and versions">
+        <aside className="space-y-6 border-outline-variant/30 bg-surface-low p-5 2xl:border-l" aria-label="Trim and versions">
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-sm font-semibold text-fg">Trim</h2>
               <span className="tabular font-mono text-[11px] text-fg-muted">{durationLabel(endMs - startMs)}</span>
             </div>
@@ -328,7 +324,7 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-sm font-semibold text-fg">Transcript</h2>
               <Segmented
                 label="Clicking a word sets"
@@ -397,7 +393,7 @@ function EditorBody({ r, refetch }: { r: Render; refetch: () => void }) {
                     <Link
                       href={`/clips/${v.id}`}
                       className={clsx(
-                        'flex items-center justify-between rounded-lg border px-3 py-2 text-xs',
+                        'flex flex-wrap items-center justify-between gap-2 rounded-lg border px-3 py-2 text-xs',
                         v.id === r.id ? 'border-primary/40 bg-surface-high text-fg' : 'border-outline-variant/30 text-fg-muted hover:text-fg',
                       )}
                       aria-current={v.id === r.id ? 'page' : undefined}

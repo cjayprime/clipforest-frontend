@@ -20,7 +20,7 @@ export function VideoCard({ video }: { video: Video }) {
   return (
     <Link
       href={`/videos/${video.id}`}
-      className="group flex flex-col justify-between rounded-xl border border-outline-variant/30 bg-surface-lowest p-3 shadow-lg transition-all hover:border-outline focus-visible:border-primary"
+      className="group flex flex-col justify-between rounded-xl border border-outline-variant/30 bg-surface-lowest p-3 shadow-sm transition-all hover:border-outline focus-visible:border-primary"
     >
       <div className="space-y-3">
         <div className="relative aspect-video overflow-hidden rounded-lg bg-surface">
@@ -33,13 +33,13 @@ export function VideoCard({ video }: { video: Video }) {
             </div>
           )}
           {video.durationMs ? (
-            <span className="absolute bottom-2 right-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[10px] text-fg backdrop-blur">{timecode(video.durationMs)}</span>
+            <span className="absolute bottom-2 right-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[11px] text-fg backdrop-blur">{timecode(video.durationMs)}</span>
           ) : null}
-          <span className="absolute left-2 top-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[10px] text-secondary backdrop-blur">
+          <span className="absolute left-2 top-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[11px] text-secondary backdrop-blur">
             {video.sourceType === 'url' ? 'YouTube' : 'Upload'}
           </span>
           {video.status === 'READY' && video.topScore != null && (
-            <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full border border-tertiary/40 bg-tertiary-strong/85 px-2 py-0.5 font-mono text-[10px] font-semibold text-white backdrop-blur">
+            <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full border border-tertiary/40 bg-tertiary-strong/85 px-2 py-0.5 font-mono text-[11px] font-semibold text-white backdrop-blur">
               <span className="size-1.5 rounded-full bg-tertiary" aria-hidden />
               Top: {video.topScore}
             </span>
@@ -50,7 +50,7 @@ export function VideoCard({ video }: { video: Video }) {
             </div>
           )}
         </div>
-        <div className="flex items-center justify-between gap-2 font-mono text-[10px] text-outline">
+        <div className="flex items-center justify-between gap-2 font-mono text-[11px] text-outline">
           <span>{relativeTime(video.createdAt)}</span>
           <VideoStatusBadge status={video.status} />
         </div>
@@ -89,7 +89,7 @@ export function VideoGrid({ videos, loading, limit }: { videos: Video[] | undefi
     );
   }
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 2xl:grid-cols-3">
       {items.map((v) => (
         <VideoCard key={v.id} video={v} />
       ))}

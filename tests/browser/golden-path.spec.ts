@@ -107,7 +107,7 @@ test('upload a video, review ranked moments, generate and re-render a clip', asy
     await page.getByRole('link', { name: 'Videos' }).click();
     await page.locator('a[href^="/videos/"]').first().click();
     await page.getByRole('button', { name: 'Delete video' }).click();
-    await expect(page).toHaveURL(/\/$/, { timeout: 60_000 });
+    await expect(page).toHaveURL(/\/dashboard$/, { timeout: 60_000 });
     await expect(page.getByText('No videos here yet')).toBeVisible({ timeout: 30_000 });
   });
 });

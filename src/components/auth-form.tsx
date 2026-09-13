@@ -19,7 +19,7 @@ export function AuthForm({ mode }: { mode: 'sign-in' | 'register' }) {
   // Query values are only available after hydration on statically optimized pages;
   // reading them before `isReady` makes the server and client markup disagree.
   const next = router.isReady && typeof router.query.next === 'string' ? router.query.next : null;
-  const target = next && next.startsWith('/') && !next.startsWith('//') ? next : '/';
+  const target = next && next.startsWith('/') && !next.startsWith('//') ? next : '/dashboard';
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -44,16 +44,16 @@ export function AuthForm({ mode }: { mode: 'sign-in' | 'register' }) {
         <title>{mode === 'sign-in' ? 'Sign in · ClipForest' : 'Create account · ClipForest'}</title>
       </Head>
       <div className="absolute inset-x-0 top-0 -z-10 mx-auto h-72 max-w-2xl bg-primary/10 blur-3xl" aria-hidden />
-      <div className="w-full max-w-sm space-y-8">
+      <div className="w-full max-w-md space-y-8">
         <div className="flex justify-center">
-          <Logo />
+          <Link href="/" aria-label="Clipforest home"><Logo /></Link>
         </div>
-        <div className="rounded-2xl border border-outline-variant/30 bg-surface-low p-6 shadow-2xl">
-          <h1 className="text-xl font-semibold text-fg">{mode === 'sign-in' ? 'Sign in' : 'Create your account'}</h1>
-          <p className="mt-1 text-sm text-fg-muted">
+        <div className="rounded-2xl border border-outline-variant/30 bg-surface-low p-6 sm:p-8">
+          <h1 className="text-3xl font-medium tracking-tight text-fg">{mode === 'sign-in' ? 'Sign in' : 'Create your account'}</h1>
+          <p className="mt-3 text-sm leading-relaxed text-fg-muted">
             {mode === 'sign-in' ? 'Welcome back. Your clips are waiting.' : 'Turn long videos into ranked, ready-to-post shorts.'}
           </p>
-          <form onSubmit={submit} className="mt-6 space-y-4">
+          <form onSubmit={submit} className="mt-8 space-y-5">
             {mode === 'register' && (
               <Field label="Name (optional)">
                 <input className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} autoComplete="name" maxLength={80} />

@@ -20,7 +20,7 @@ export default function NewVideoPage() {
       </Head>
       <div className="mx-auto max-w-5xl space-y-8">
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-fg">New video</h1>
+          <h1 className="text-3xl font-medium tracking-tight text-fg">New video</h1>
           <p className="text-fg-muted">Upload a long-form recording or import a YouTube link. Files go straight to secure storage.</p>
         </div>
         <NewVideoPanel />

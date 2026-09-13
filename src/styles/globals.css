@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
-/* Obsidian Kinetic design tokens (__ui_design__/obsidian_kinetic/DESIGN.md). */
+/* Shared forest and lime palette, matching the public marketing pages. */
 @theme {
-  --color-canvas: #051424;
-  --color-surface-lowest: #010f1f;
-  --color-surface-low: #0d1c2d;
-  --color-surface: #122131;
-  --color-surface-high: #1c2b3c;
-  --color-surface-highest: #273647;
-  --color-surface-bright: #2c3a4c;
-  --color-fg: #d4e4fa;
-  --color-fg-muted: #c7c4d7;
-  --color-outline: #908fa0;
-  --color-outline-variant: #464554;
-  --color-primary: #c0c1ff;
-  --color-primary-strong: #8083ff;
-  --color-on-primary: #0d0096;
-  --color-secondary: #4cd7f6;
+  --color-canvas: #101611;
+  --color-surface-lowest: #0c120e;
+  --color-surface-low: #192019;
+  --color-surface: #1d261e;
+  --color-surface-high: #263128;
+  --color-surface-highest: #344137;
+  --color-surface-bright: #3f4c42;
+  --color-fg: #f2f4ee;
+  --color-fg-muted: #b3beb5;
+  --color-outline: #9da8a0;
+  --color-outline-variant: #526055;
+  --color-primary: #d0fb78;
+  --color-primary-strong: #add653;
+  --color-on-primary: #172010;
+  --color-secondary: #d5dcb5;
   --color-tertiary: #4edea3;
   --color-tertiary-strong: #00885d;
   --color-danger: #ffb4ab;
@@ -46,7 +46,7 @@ body {
 
 ::selection {
   background: var(--color-primary-strong);
-  color: #fff;
+  color: var(--color-on-primary);
 }
 
 :focus-visible {
@@ -73,4 +73,19 @@ h1, h2, h3 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Scores only fit inside wide ranges; narrow markers expose them in their tooltip. */
+.moment-marker { container-type: inline-size; }
+.moment-score { display: none; }
+@container (min-width: 28px) { .moment-score { display: inline; } }
+.clip-workspace { display: grid; grid-template-columns: minmax(0, 1fr); }
+.clip-preview { width: min(100%, 360px); aspect-ratio: 9 / 16; }
+@media (min-width: 768px) {
+  .clip-workspace { grid-template-columns: minmax(240px, 1fr) minmax(0, 1.3fr); }
+  .clip-workspace > aside:last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1536px) {
+  .clip-workspace { grid-template-columns: 280px minmax(0, 1fr) 320px; }
+  .clip-workspace > aside:last-child { grid-column: auto; }
 }

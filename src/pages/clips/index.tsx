@@ -22,7 +22,7 @@ export default function ClipsPage() {
       <div className="space-y-6">
         <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-fg">Clips</h1>
+            <h1 className="text-3xl font-medium tracking-tight text-fg">Clips</h1>
             <p className="mt-1 text-sm text-fg-muted">Rendered 9:16 clips across all your videos.</p>
           </div>
           <Segmented
@@ -43,7 +43,7 @@ export default function ClipsPage() {
             Open a processed video and choose Generate clip on any moment.
           </EmptyState>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <div className="grid grid-cols-1 gap-5 min-[420px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {items.map((r) => (
               <Link key={r.id} href={`/clips/${r.id}`} className="group flex flex-col gap-2 rounded-xl border border-outline-variant/30 bg-surface-lowest p-2 transition-colors hover:border-outline">
                 <div className="relative aspect-[9/16] overflow-hidden rounded-lg bg-surface">
@@ -55,17 +55,17 @@ export default function ClipsPage() {
                       <Scissors className="size-6 text-outline-variant" aria-hidden />
                     </div>
                   )}
-                  <span className="absolute bottom-2 right-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[10px] text-fg backdrop-blur">
+                  <span className="absolute bottom-2 right-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[11px] text-fg backdrop-blur">
                     {durationLabel(r.durationMs ?? r.endMs - r.startMs)}
                   </span>
-                  <span className="absolute left-2 top-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[10px] text-fg-muted backdrop-blur">v{r.version}</span>
+                  <span className="absolute left-2 top-2 rounded bg-surface-lowest/80 px-1.5 py-0.5 font-mono text-[11px] text-fg-muted backdrop-blur">v{r.version}</span>
                 </div>
                 <div className="space-y-1 px-1 pb-1">
                   <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-fg">{r.title}</h3>
-                  <p className="truncate font-mono text-[10px] text-outline">{r.videoTitle}</p>
+                  <p className="truncate font-mono text-[11px] text-outline">{r.videoTitle}</p>
                   <div className="flex items-center justify-between gap-2">
                     <RenderStatusBadge status={r.status} progress={r.progress} />
-                    <span className="font-mono text-[10px] text-outline">{relativeTime(r.createdAt)}</span>
+                    <span className="font-mono text-[11px] text-outline">{relativeTime(r.createdAt)}</span>
                   </div>
                 </div>
               </Link>

@@ -30,7 +30,7 @@ Open http://localhost:3000 and register — **no account is seeded, and nothing 
 
 | Path | What it is |
 | --- | --- |
-| `src/pages/` | Routes: dashboard, new video, processing/results, clip editor, clips, settings, sign-in, register. |
+| `src/pages/` | Routes: public landing page (`/`), authenticated dashboard (`/dashboard`), new video, processing/results, clip editor, clips, settings, sign-in, register. |
 | `src/components/` | Screens (new video, video/results, clip editor) and shared UI (shell, timeline, source player, candidate and video cards, upload progress). |
 | `src/lib/` | API client, React Query hooks, SSE event stream, direct-to-storage uploader, timecode and formatting helpers. |
 | `src/proxy.ts` | Optimistic auth redirect (real authorization happens in the API). |

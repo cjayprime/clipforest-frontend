@@ -93,7 +93,7 @@ function useDeleteVideo(video: Video) {
     try {
       await api(`/videos/${video.id}`, { method: 'DELETE' });
       await invalidate(['videos', 'renders']);
-      await router.push('/');
+      await router.push('/dashboard');
     } catch (err) {
       window.alert(errorMessage(err));
       setBusy(false);
@@ -123,12 +123,12 @@ function TechSpecs({ video }: { video: Video }) {
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
       {items.map(({ icon: Icon, label, value, sub }) => (
         <Card key={label} className="flex flex-col gap-1 p-3.5">
-          <div className="flex items-center justify-between font-mono text-[10px] text-outline">
+          <div className="flex items-center justify-between font-mono text-[11px] text-outline">
             {label}
             <Icon className="size-4" aria-hidden />
           </div>
           <span className="truncate text-base font-semibold text-fg">{value}</span>
-          <span className="truncate font-mono text-[10px] text-outline">{sub}</span>
+          <span className="truncate font-mono text-[11px] text-outline">{sub}</span>
         </Card>
       ))}
     </div>
@@ -205,11 +205,11 @@ function ProcessingView({ video }: { video: Video }) {
                 <LoaderCircle className="absolute inset-0 m-auto size-5 animate-spin text-primary" aria-hidden />
               </div>
               <div className="min-w-0">
-                <p className="font-mono text-[10px] text-secondary">
+                <p className="font-mono text-[11px] text-secondary">
                   Processing · added {relativeTime(video.createdAt)}
                 </p>
                 <h1 className="truncate text-lg font-semibold text-fg">{video.title}</h1>
-                <p className="truncate font-mono text-[10px] text-outline">{video.sourceType === 'url' ? video.sourceUrl : video.originalFilename}</p>
+                <p className="truncate font-mono text-[11px] text-outline">{video.sourceType === 'url' ? video.sourceUrl : video.originalFilename}</p>
               </div>
             </div>
             <VideoStatusBadge status={video.status} />
@@ -223,7 +223,7 @@ function ProcessingView({ video }: { video: Video }) {
           <div className="mt-6 space-y-3 rounded-xl border border-outline-variant/30 bg-surface-lowest/80 p-5">
             <div className="flex items-end justify-between gap-3">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-outline">Progress</span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-outline">Progress</span>
                 <p className="tabular text-4xl font-semibold text-fg" aria-live="polite">
                   {pct}%
                 </p>
@@ -232,7 +232,7 @@ function ProcessingView({ video }: { video: Video }) {
               {waitingUpload && upload && <span className="font-mono text-[11px] text-outline">{bytes(upload.loaded)} of {bytes(upload.total)}</span>}
             </div>
             <ProgressBar value={pct} label={`${headline} ${pct}%`} />
-            <p className="font-mono text-[10px] text-outline">Progress is an estimate; the steps below reflect the confirmed stage.</p>
+            <p className="font-mono text-[11px] text-outline">Progress is an estimate; the steps below reflect the confirmed stage.</p>
           </div>
 
           {waitingUpload && upload?.state === 'error' && (
@@ -269,7 +269,7 @@ function ProcessingView({ video }: { video: Video }) {
                   <div className="pt-1">
                     <p className={clsx('text-sm font-semibold', state === 'active' ? 'text-primary' : 'text-fg')}>
                       {s.label}
-                      <span className="ml-2 font-mono text-[10px] font-normal text-outline">{state === 'done' ? 'Done' : state === 'active' ? 'In progress' : 'Pending'}</span>
+                      <span className="ml-2 font-mono text-[11px] font-normal text-outline">{state === 'done' ? 'Done' : state === 'active' ? 'In progress' : 'Pending'}</span>
                     </p>
                     <p className="text-xs text-fg-muted">{s.desc}</p>
                   </div>
@@ -301,11 +301,7 @@ function ProcessingView({ video }: { video: Video }) {
               >
                 Cancel & delete
               </Button>
-              <Link href="/">
-                <Button variant="primary" size="sm" icon={<LayoutDashboard className="size-4" />}>
-                  Go to dashboard
-                </Button>
-              </Link>
+              <Link href="/dashboard" className="inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-primary px-3 text-xs font-medium text-on-primary shadow-[0_3px_0_#a0bc64] hover:bg-[#dcff9b]"><LayoutDashboard className="size-4" aria-hidden />Go to dashboard</Link>
             </div>
           </div>
         </Card>
@@ -379,7 +375,7 @@ function ManualRangeForm({ video, playerMs }: { video: Video; playerMs: () => nu
           { label: 'End', value: end, set: setEnd },
         ].map((f) => (
           <label key={f.label} className="block space-y-1">
-            <span className="flex items-center justify-between font-mono text-[10px] uppercase tracking-wider text-outline">
+            <span className="flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-outline">
               {f.label}
               <button type="button" className="normal-case tracking-normal text-primary hover:underline" onClick={() => use(f.set)}>
                 use player time
@@ -467,7 +463,7 @@ function ResultsView({ video }: { video: Video }) {
 
       <div className="grid grid-cols-1 xl:grid-cols-12">
         <section className="flex flex-col gap-4 border-outline-variant/30 p-4 sm:p-6 xl:col-span-7 xl:border-r">
-          <div className="xl:sticky xl:top-[7.5rem]">
+          <div className="space-y-4">
             <SourcePlayer ref={player} videoId={video.id} onTime={setNow} />
             <div className="mt-4">
               <Timeline

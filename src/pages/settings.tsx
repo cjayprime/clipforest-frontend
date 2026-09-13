@@ -24,17 +24,17 @@ export default function SettingsPage() {
         <title>Settings · ClipForest</title>
       </Head>
       <div className="mx-auto max-w-3xl space-y-6">
-        <h1 className="text-3xl font-semibold tracking-tight text-fg">Settings</h1>
+        <h1 className="text-3xl font-medium tracking-tight text-fg">Settings</h1>
         {!user ? (
           <Spinner label="Loading account" />
         ) : (
           <>
-            <Card className="space-y-4 p-5">
+            <Card className="space-y-5 p-5 sm:p-6">
               <h2 className="font-mono text-[11px] uppercase tracking-wider text-outline">Account</h2>
               <dl className="grid gap-4 text-sm sm:grid-cols-2">
                 <div>
                   <dt className="text-outline">Email</dt>
-                  <dd className="text-fg">{user.email}</dd>
+                  <dd className="break-all text-fg">{user.email}</dd>
                 </div>
                 <div>
                   <dt className="text-outline">Name</dt>
@@ -53,7 +53,7 @@ export default function SettingsPage() {
                 Sign out
               </Button>
             </Card>
-            <Card className="space-y-4 p-5">
+            <Card className="space-y-5 p-5 sm:p-6">
               <h2 className="font-mono text-[11px] uppercase tracking-wider text-outline">Usage</h2>
               <dl className="grid gap-4 text-sm sm:grid-cols-2">
                 <div>
@@ -73,7 +73,7 @@ export default function SettingsPage() {
                 {Math.round((cfg?.renderMaxDurationMs ?? 0) / 1000)} seconds, 1080×1920 H.264.
               </p>
               <p>Deleting a video removes its moments and clips and schedules deletion of every stored file for it.</p>
-              <p className="font-mono text-[10px] text-outline">Pipeline {cfg?.pipelineVersion}</p>
+              <p className="font-mono text-[11px] text-outline">Pipeline {cfg?.pipelineVersion}</p>
             </Card>
           </>
         )}

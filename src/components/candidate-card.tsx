@@ -32,15 +32,15 @@ export function CandidateCard({
       aria-label={c.title}
       className={clsx(
         'rounded-xl p-4 transition-all',
-        active ? 'border-2 border-tertiary/80 bg-surface-high shadow-[0_0_24px_-4px_rgba(78,222,163,0.2)]' : 'border border-outline-variant/40 bg-surface hover:border-primary/50',
+        active ? 'border border-primary/70 bg-primary/5' : 'border border-outline-variant/40 bg-surface hover:border-primary/50',
       )}
     >
       <div className="mb-2.5 flex flex-wrap items-start justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <ScoreBadge score={c.score} />
           <Badge tone="muted">{CATEGORY_LABEL[c.category] ?? c.category}</Badge>
         </div>
-        <div className="flex items-center gap-1.5 font-mono text-[10px] text-fg-muted">
+        <div className="flex items-center gap-1.5 font-mono text-[11px] text-fg-muted">
           <span className={active ? 'text-tertiary' : undefined}>
             {timecode(c.startMs)} – {timecode(c.endMs)}
           </span>
@@ -52,7 +52,7 @@ export function CandidateCard({
       <h3 className="mb-2 text-base font-semibold leading-snug text-fg">{c.title}</h3>
 
       <div className="mb-3 rounded-lg border border-outline-variant/30 bg-surface-low/80 p-2.5">
-        <div className="mb-1 flex items-center gap-1.5 font-mono text-[10px] text-primary">
+        <div className="mb-1 flex items-center gap-1.5 font-mono text-[11px] text-primary">
           <Sparkles className="size-3.5" aria-hidden /> Why it works
         </div>
         <p className="text-sm italic text-fg-muted">{c.reason}</p>
@@ -63,12 +63,12 @@ export function CandidateCard({
       <dl className="mb-3 grid grid-cols-3 gap-x-3 gap-y-1.5 sm:grid-cols-6">
         {DIMENSIONS.map(([k, label]) => (
           <div key={k}>
-            <dt className="font-mono text-[9px] uppercase tracking-wider text-outline">{label}</dt>
+            <dt className="font-mono text-[11px] uppercase tracking-wider text-outline">{label}</dt>
             <dd className="flex items-center gap-1">
               <span className="h-1 flex-1 overflow-hidden rounded-full bg-surface-highest">
                 <span className="block h-full rounded-full bg-primary" style={{ width: `${(c.componentScores[k] ?? 0) * 10}%` }} />
               </span>
-              <span className="tabular font-mono text-[10px] text-fg">{c.componentScores[k]}</span>
+              <span className="tabular font-mono text-[11px] text-fg">{c.componentScores[k]}</span>
             </dd>
           </div>
         ))}
@@ -76,16 +76,12 @@ export function CandidateCard({
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-outline-variant/30 pt-3">
         <div>{c.latestRender && <RenderStatusBadge status={c.latestRender.status} progress={c.latestRender.progress} />}</div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button size="sm" variant="ghost" onClick={onPreview} icon={<CirclePlay className="size-4" />}>
             Preview
           </Button>
           {c.latestRender ? (
-            <Link href={`/clips/${c.latestRender.id}`}>
-              <Button size="sm" variant="secondary" icon={<ExternalLink className="size-3.5" />}>
-                Open clip
-              </Button>
-            </Link>
+            <Link href={`/clips/${c.latestRender.id}`} className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-outline-variant/60 bg-surface px-3 text-xs font-medium text-fg hover:bg-surface-high"><ExternalLink className="size-3.5" aria-hidden />Open clip</Link>
           ) : (
             <Button size="sm" variant="primary" onClick={onGenerate} loading={generating} icon={<WandSparkles className="size-3.5" />}>
               Generate clip

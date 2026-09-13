@@ -16,10 +16,10 @@ export const Button = forwardRef<
       disabled={disabled || loading}
       className={clsx(
         'inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100',
-        size === 'sm' && 'h-8 px-3 text-xs',
-        size === 'md' && 'h-9 px-3.5 text-sm',
+        size === 'sm' && 'h-9 px-3 text-xs',
+        size === 'md' && 'h-10 px-4 text-sm',
         size === 'lg' && 'h-11 px-5 text-sm',
-        variant === 'primary' && 'bg-primary text-on-primary shadow-[0_0_16px_rgba(128,131,255,0.3)] hover:bg-[#d4d4ff]',
+        variant === 'primary' && 'bg-primary text-on-primary shadow-[0_3px_0_#a0bc64] hover:bg-[#dcff9b]',
         variant === 'secondary' && 'border border-outline-variant/60 bg-surface text-fg hover:border-outline hover:bg-surface-high',
         variant === 'ghost' && 'text-fg-muted hover:bg-white/5 hover:text-fg',
         variant === 'danger' && 'text-danger hover:bg-danger-strong/25',
@@ -71,7 +71,7 @@ export function ScoreBadge({ score, showLabel = true }: { score: number; showLab
     >
       <span className="size-1.5 rounded-full bg-current" aria-hidden />
       <span className="tabular">{score}</span>
-      {showLabel && <span className="rounded bg-current/15 px-1 text-[9px] uppercase tracking-wider">{tier.label}</span>}
+      {showLabel && <span className="rounded bg-current/15 px-1 text-[11px] uppercase tracking-wider">{tier.label}</span>}
     </span>
   );
 }
@@ -111,7 +111,7 @@ export function ProgressBar({ value, label, className, animated = true }: { valu
       className={clsx('relative h-2 w-full overflow-hidden rounded-full bg-surface-high', className)}
     >
       <div
-        className="relative h-full overflow-hidden rounded-full bg-gradient-to-r from-primary-strong via-primary to-secondary transition-[width] duration-500"
+        className="relative h-full overflow-hidden rounded-full bg-gradient-to-r from-primary-strong to-primary transition-[width] duration-500"
         style={{ width: `${v}%` }}
       >
         {animated && v < 100 && <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />}
@@ -212,7 +212,7 @@ export function Segmented<T extends string>({
   label: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex rounded-lg border border-outline-variant/40 bg-surface-lowest p-1 font-mono text-[11px]">
+    <div role="radiogroup" aria-label={label} className="inline-flex max-w-full flex-wrap gap-1 rounded-lg border border-outline-variant/40 bg-surface-lowest p-1 font-mono text-[11px]">
       {options.map((o) => (
         <button
           key={o.value}
@@ -220,7 +220,7 @@ export function Segmented<T extends string>({
           role="radio"
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
-          className={clsx('rounded-md px-3 py-1 transition-colors', value === o.value ? 'bg-surface-high text-primary' : 'text-outline hover:text-fg')}
+          className={clsx('min-h-8 rounded-md px-3 py-1.5 transition-colors', value === o.value ? 'bg-surface-high text-primary' : 'text-outline hover:text-fg')}
         >
           {o.label}
         </button>
@@ -246,8 +246,8 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
 
 export function Field({ label, hint, children }: { label: string; hint?: ReactNode; children: ReactNode }) {
   return (
-    <label className="block space-y-1.5">
-      <span className="font-mono text-[10px] uppercase tracking-wider text-outline">{label}</span>
+    <label className="block min-w-0 space-y-2">
+      <span className="font-mono text-[11px] uppercase tracking-wider text-outline">{label}</span>
       {children}
       {hint && <span className="block text-xs text-outline">{hint}</span>}
     </label>
