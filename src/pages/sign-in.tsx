@@ -1,7 +1,7 @@
 import { AuthForm } from '@/components/auth-form';
-import type { ClipForestPage } from './_app';
+import type { ClipRoverPage } from './_app';
 
-const SignInPage: ClipForestPage = () => <AuthForm mode="sign-in" />;
+const SignInPage: ClipRoverPage = () => <AuthForm mode="sign-in" />;
 SignInPage.public = true;
 
 export default SignInPage;

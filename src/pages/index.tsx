@@ -2,7 +2,7 @@ import { ArrowDown, ArrowRight, AudioLines, Captions, Check, ChevronDown, Crop, 
 import Head from 'next/head';
 import Link from 'next/link';
 import { MarketingHeader, MarketingFooter, useMarketingSession } from '@/components/marketing';
-import type { ClipForestPage } from './_app';
+import type { ClipRoverPage } from './_app';
 import styles from '@/styles/landing.module.css';
 
 const moments = [
@@ -12,20 +12,20 @@ const moments = [
 ];
 const faqs = [
   ['What kind of videos can I use?', 'Upload an MP4, MOV, WebM, M4V, or MKV, or paste a supported YouTube link. Videos with spoken content—podcasts, interviews, tutorials, and conversations—give the AI the most to work with. Only use content you own or have permission to process.'],
-  ['How does ClipForest choose the moments?', 'ClipForest transcribes your video and analyzes the spoken words for hooks, clear ideas, stories, and natural endings. Suggested moments are ranked to help you decide where to start. Scores are editorial guidance, not a guarantee of views.'],
+  ['How does ClipRover choose the moments?', 'ClipRover transcribes your video and analyzes the spoken words for hooks, clear ideas, stories, and natural endings. Suggested moments are ranked to help you decide where to start. Scores are editorial guidance, not a guarantee of views.'],
   ['Can I change a suggested clip?', 'Yes. Adjust the start and end, choose automatic framing, a center crop, or a full-frame fit, and pick a caption style. Each rerender saves a new version, so you can keep your earlier edits.'],
-  ['What do I get when I export?', 'A downloadable 1080 × 1920 vertical MP4, with captions burned in if you enable them. It is ready for you to upload to YouTube Shorts, Instagram Reels, or TikTok.'],
+  ['What do I get when I export?', 'A downloadable MP4 in 9:16, 4:5, 1:1 or 16:9, with captions burned in if you enable them. It is ready for YouTube Shorts, Instagram Reels, TikTok or a regular feed.'],
 ];
 
-const Landing: ClipForestPage = () => {
+const Landing: ClipRoverPage = () => {
   const session = useMarketingSession();
   const destination = session.data ? '/dashboard' : '/register';
   return (
     <div className={styles.page}>
       <Head>
-        <title>ClipForest — Your next great clip is already in there</title>
-        <meta name="description" content="Turn long videos into standout short clips. Find the best spoken moments with AI, add captions, reframe for vertical, and export with ClipForest." />
-        <meta property="og:title" content="ClipForest — Long videos. Short-form potential." />
+        <title>ClipRover — Your next great clip is already in there</title>
+        <meta name="description" content="Turn long videos into standout short clips. Find the best spoken moments with AI, add captions, reframe for vertical, and export with ClipRover." />
+        <meta property="og:title" content="ClipRover — Long videos. Short-form potential." />
         <meta property="og:description" content="Find the moments worth sharing. Turn your long videos into captioned, vertical clips with AI." />
       </Head>
       <a className={styles.skip} href="#main">Skip to content</a>
@@ -39,7 +39,7 @@ const Landing: ClipForestPage = () => {
             <div className={styles.heroActions}><Link className={styles.primaryButton} href={destination}>Find my best moments <ArrowRight size={18} /></Link><a className={styles.textButton} href="#how-it-works"><span><Play size={12} fill="currentColor" /></span> See how it works</a></div>
             <div className={styles.heroNotes}><span><Check size={14} /> YouTube links or uploads</span><span><Check size={14} /> Your edit. Your final say.</span></div>
           </div>
-          <div className={styles.studio} aria-label="Illustrative preview of ClipForest finding moments and creating a vertical clip">
+          <div className={styles.studio} aria-label="Illustrative preview of ClipRover finding moments and creating a vertical clip">
             <div className={styles.studioTop}><span><span className={styles.statusDot} /> THE CREATOR’S CUT</span><span>STUDIO PREVIEW <MoveUpRight size={12} /></span></div>
             <div className={styles.studioBody}>
               <div className={styles.sourceColumn}>

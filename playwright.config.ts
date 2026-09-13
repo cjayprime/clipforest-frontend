@@ -20,7 +20,7 @@ export default defineConfig({
   use: {
     // localhost (not 127.0.0.1): browsers upload directly to storage, and the
     // storage CORS allow-list is origin-exact.
-    baseURL: process.env.CLIPFOREST_WEB_URL ?? 'http://localhost:3000',
+    baseURL: process.env.CLIPROVER_WEB_URL ?? 'http://localhost:3000',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'off',

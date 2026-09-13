@@ -6,7 +6,7 @@
  */
 import { chromium, devices } from '@playwright/test';
 
-const BASE = process.env.CLIPFOREST_WEB_URL ?? 'http://localhost:3000';
+const BASE = process.env.CLIPROVER_WEB_URL ?? 'http://localhost:3000';
 const [email, target = '/'] = process.argv.slice(2);
 
 const browser = await chromium.launch();

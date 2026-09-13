@@ -17,13 +17,13 @@ export default function ClipsPage() {
   return (
     <PageContainer>
       <Head>
-        <title>Clips · ClipForest</title>
+        <title>Clips · ClipRover</title>
       </Head>
       <div className="space-y-6">
         <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
             <h1 className="text-3xl font-medium tracking-tight text-fg">Clips</h1>
-            <p className="mt-1 text-sm text-fg-muted">Rendered 9:16 clips across all your videos.</p>
+            <p className="mt-1 text-sm text-fg-muted">Rendered clips across all your videos.</p>
           </div>
           <Segmented
             label="Filter clips"
@@ -49,7 +49,7 @@ export default function ClipsPage() {
                 <div className="relative aspect-[9/16] overflow-hidden rounded-lg bg-surface">
                   {r.thumbnailUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={r.thumbnailUrl} alt="" className="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                    <img src={r.thumbnailUrl} alt="" className={`size-full transition-transform duration-300 group-hover:scale-105 ${r.settings.aspectRatio === '9:16' ? 'object-cover' : 'object-contain'}`} />
                   ) : (
                     <div className="flex size-full items-center justify-center">
                       <Scissors className="size-6 text-outline-variant" aria-hidden />

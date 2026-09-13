@@ -9,7 +9,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Next.js resolves rewrites at BUILD time, so the API origin is a build argument,
 # not a runtime variable — pass it per environment:
-#   docker build --build-arg API_INTERNAL_URL=https://api.example.com -t clipforest-web .
+#   docker build --build-arg API_INTERNAL_URL=https://api.example.com -t cliprover-web .
 ARG API_INTERNAL_URL=http://localhost:4000
 ENV API_INTERNAL_URL=$API_INTERNAL_URL NEXT_TELEMETRY_DISABLED=1
 RUN npm run build

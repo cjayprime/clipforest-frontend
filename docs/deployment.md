@@ -33,8 +33,8 @@ npm start                                  # PORT defaults to 3000
 ## Container
 
 ```bash
-docker build --build-arg API_INTERNAL_URL=https://api.clips.example.com -t clipforest-web .
-docker run -p 3000:3000 clipforest-web
+docker build --build-arg API_INTERNAL_URL=https://api.clips.example.com -t cliprover-web .
+docker run -p 3000:3000 cliprover-web
 ```
 
 Put TLS in front of it (Caddy, a load balancer, or the platform's own). Health: any 200 from `/sign-in` is enough — this app has no readiness dependencies of its own; if the API is down, pages render and show an error state.

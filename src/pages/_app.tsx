@@ -15,7 +15,7 @@ const geist = Geist({ variable: '--font-geist', subsets: ['latin'] });
 const mono = JetBrains_Mono({ variable: '--font-jetbrains', subsets: ['latin'] });
 
 /** Pages opt out of the authenticated app shell with `Page.public = true`. */
-export type ClipForestPage<P = object> = NextPage<P> & { public?: boolean };
+export type ClipRoverPage<P = object> = NextPage<P> & { public?: boolean };
 
 function handleAuthError(error: unknown) {
   if (error instanceof ApiError && error.status === 401 && typeof window !== 'undefined') {
@@ -28,7 +28,7 @@ function handleAuthError(error: unknown) {
   }
 }
 
-export default function App({ Component, pageProps }: AppProps & { Component: ClipForestPage }) {
+export default function App({ Component, pageProps }: AppProps & { Component: ClipRoverPage }) {
   const [client] = useState(
     () =>
       new QueryClient({
@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps & { Component: Cl
   return (
     <QueryClientProvider client={client}>
       <Head>
-        <title>ClipForest</title>
+        <title>ClipRover</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={`${geist.variable} ${mono.variable} min-h-screen font-sans`}>

@@ -1,4 +1,4 @@
-# ClipForest — web
+# ClipRover — web
 
 The user-facing half of an AI short-form video clipping platform: upload a long video, watch it process, review the ranked shortlist of moments, and turn any of them into a captioned 1080×1920 clip.
 
@@ -24,13 +24,15 @@ npm install
 npm run dev            # http://localhost:3000
 ```
 
-Open http://localhost:3000 and register — **no account is seeded, and nothing sends email**; registration signs you straight in.
+Open http://localhost:3000 and register — **no account is seeded**, and registration signs you straight in with no verification step.
+
+Password reset emails are sent by the backend. With no Brevo key configured there, the reset link is printed to the API's log instead of being delivered.
 
 ## Layout
 
 | Path | What it is |
 | --- | --- |
-| `src/pages/` | Routes: public landing page (`/`), authenticated dashboard (`/dashboard`), new video, processing/results, clip editor, clips, settings, sign-in, register. |
+| `src/pages/` | Routes: public landing page (`/`), authenticated dashboard (`/dashboard`), new video, processing/results, clip editor, clips, settings, sign-in, register, forgot password, reset password. |
 | `src/components/` | Screens (new video, video/results, clip editor) and shared UI (shell, timeline, source player, candidate and video cards, upload progress). |
 | `src/lib/` | API client, React Query hooks, SSE event stream, direct-to-storage uploader, timecode and formatting helpers. |
 | `src/proxy.ts` | Optimistic auth redirect (real authorization happens in the API). |

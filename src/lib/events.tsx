@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { keys } from './hooks';
 import type { ProgressEvent } from './types';
 
 type LiveStatus = 'connecting' | 'open' | 'closed';
@@ -44,6 +45,12 @@ export function LiveEventsProvider({ children }: { children: ReactNode }) {
         }
         void qc.invalidateQueries({ queryKey: ['videos'] });
       }
+      if (e.type === 'credits.updated' || e.type === 'subscription.updated') {
+        // Grants and subscription changes (Polar webhook) and charges and refunds
+        // (worker). The billing prefix covers the balance and any pending checkout status.
+        void qc.invalidateQueries({ queryKey: keys.billing });
+        void qc.invalidateQueries({ queryKey: keys.me });
+      }
       if (e.type === 'render.updated' && e.renderId) {
         qc.setQueryData(['render', e.renderId], (old: Record<string, unknown> | undefined) =>
           old ? { ...old, status: e.status, progress: e.progress ?? old.progress, substage: e.substage ?? old.substage } : old,
@@ -70,6 +77,8 @@ export function LiveEventsProvider({ children }: { children: ReactNode }) {
       };
       es.addEventListener('video.updated', onEvent as EventListener);
       es.addEventListener('render.updated', onEvent as EventListener);
+      es.addEventListener('credits.updated', onEvent as EventListener);
+      es.addEventListener('subscription.updated', onEvent as EventListener);
       es.onerror = () => {
         es?.close();
         setStatus('closed');

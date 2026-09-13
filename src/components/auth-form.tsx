@@ -41,12 +41,12 @@ export function AuthForm({ mode }: { mode: 'sign-in' | 'register' }) {
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
       <Head>
-        <title>{mode === 'sign-in' ? 'Sign in · ClipForest' : 'Create account · ClipForest'}</title>
+        <title>{mode === 'sign-in' ? 'Sign in · ClipRover' : 'Create account · ClipRover'}</title>
       </Head>
       <div className="absolute inset-x-0 top-0 -z-10 mx-auto h-72 max-w-2xl bg-primary/10 blur-3xl" aria-hidden />
       <div className="w-full max-w-md space-y-8">
         <div className="flex justify-center">
-          <Link href="/" aria-label="Clipforest home"><Logo /></Link>
+          <Link href="/" aria-label="Cliprover home"><Logo /></Link>
         </div>
         <div className="rounded-2xl border border-outline-variant/30 bg-surface-low p-6 sm:p-8">
           <h1 className="text-3xl font-medium tracking-tight text-fg">{mode === 'sign-in' ? 'Sign in' : 'Create your account'}</h1>
@@ -62,17 +62,27 @@ export function AuthForm({ mode }: { mode: 'sign-in' | 'register' }) {
             <Field label="Email">
               <input className={inputClass} type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
             </Field>
-            <Field label="Password" hint={mode === 'register' ? 'At least 8 characters.' : undefined}>
-              <input
-                className={inputClass}
-                type="password"
-                required
-                minLength={mode === 'register' ? 8 : 1}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
-              />
-            </Field>
+            <div className="space-y-2">
+              <Field label="Password" hint={mode === 'register' ? 'At least 8 characters.' : undefined}>
+                <input
+                  className={inputClass}
+                  type="password"
+                  required
+                  minLength={mode === 'register' ? 8 : 1}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete={mode === 'sign-in' ? 'current-password' : 'new-password'}
+                />
+              </Field>
+              {/* Outside the Field: an anchor inside its <label> would also focus the input. */}
+              {mode === 'sign-in' && (
+                <div className="text-right">
+                  <Link className="text-xs text-fg-muted underline-offset-4 hover:text-primary hover:underline" href="/forgot-password">
+                    Forgot your password?
+                  </Link>
+                </div>
+              )}
+            </div>
             {error && (
               <p role="alert" className="rounded-lg border border-danger/30 bg-danger-strong/15 px-3 py-2 text-sm text-danger">
                 {error}

@@ -22,7 +22,7 @@ export function MarketingHeader({ session, pricing = false }: { session: ReturnT
   return (
       <header className={styles.header}>
         <nav className={styles.nav} aria-label="Main navigation">
-          <Link href="/" className={styles.logo} aria-label="ClipForest home"><span><Clapperboard size={21} /></span>clipforest<span className={styles.logoDot}>.</span></Link>
+          <Link href="/" className={styles.logo} aria-label="ClipRover home"><span><Clapperboard size={21} /></span>cliprover<span className={styles.logoDot}>.</span></Link>
           <div className={styles.navLinks}><Link href="/#how-it-works">How it works</Link><Link href="/#features">The toolkit</Link><Link href="/pricing" aria-current={pricing ? 'page' : undefined}>Pricing</Link><Link href="/#faq">FAQs</Link></div>
           <div className={styles.navActions} aria-busy={session.isPending}>
             {session.isPending ? <span className={styles.navPlaceholder} aria-label="Checking session" /> : session.data ? <Link className={styles.smallButton} href="/dashboard">Dashboard <ArrowRight size={15} /></Link> : <><Link className={styles.login} href="/sign-in">Log in</Link><Link className={styles.smallButton} href="/register">Get started <ArrowRight size={15} /></Link></>}
@@ -34,6 +34,6 @@ export function MarketingHeader({ session, pricing = false }: { session: ReturnT
 
 export function MarketingFooter() {
   return (
-      <footer className={styles.footer}><Link href="/" className={styles.logo}><span><Clapperboard size={19} /></span>clipforest<span className={styles.logoDot}>.</span></Link><nav aria-label="Footer navigation"><Link href="/pricing">Pricing</Link></nav><small>© {new Date().getFullYear()} ClipForest</small></footer>
+      <footer className={styles.footer}><Link href="/" className={styles.logo}><span><Clapperboard size={19} /></span>cliprover<span className={styles.logoDot}>.</span></Link><nav aria-label="Footer navigation"><Link href="/pricing">Pricing</Link></nav><small>© {new Date().getFullYear()} ClipRover</small></footer>
   );
 }

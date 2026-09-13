@@ -4,10 +4,10 @@ import path from 'node:path';
 /**
  * The product's golden path, driven through the real UI (PRD §3.3, §22):
  * sign-in guard → register → upload → processing → ranked moments → generate a
- * 9:16 clip → adjust and re-render → clips library → delete.
+ * 9:16 clip → adjust (1:1, center crop, no captions) and re-render → clips library → delete.
  */
 
-const FIXTURE = process.env.CLIPFOREST_FIXTURE ?? path.resolve(__dirname, '.fixtures/sample.mp4');
+const FIXTURE = process.env.CLIPROVER_FIXTURE ?? path.resolve(__dirname, '.fixtures/sample.mp4');
 const account = { email: `pw-${Date.now()}@example.com`, password: 'playwright-test-pw' };
 
 async function register(page: Page) {
@@ -49,7 +49,7 @@ test('upload a video, review ranked moments, generate and re-render a clip', asy
   await test.step('upload the file directly to storage', async () => {
     await page.getByRole('checkbox', { name: /own this content/i }).check();
     await page.locator('input[type="file"]').setInputFiles(FIXTURE);
-    await expect(page).toHaveURL(/\/videos\/[0-9a-f-]{36}$/, { timeout: 60_000 });
+    await expect(page).toHaveURL(/\/videos\/\d+$/, { timeout: 60_000 });
   });
 
   await test.step('processing shows durable stage progress', async () => {
@@ -72,7 +72,7 @@ test('upload a video, review ranked moments, generate and re-render a clip', asy
 
   const clipUrl = await test.step('generate a clip from the top moment', async () => {
     await page.locator('article').first().getByRole('button', { name: 'Generate clip' }).click();
-    await expect(page).toHaveURL(/\/clips\/[0-9a-f-]{36}$/, { timeout: 60_000 });
+    await expect(page).toHaveURL(/\/clips\/\d+$/, { timeout: 60_000 });
     await expect(page.getByText('9:16', { exact: true }).first()).toBeVisible();
     return page.url();
   });
@@ -87,12 +87,14 @@ test('upload a video, review ranked moments, generate and re-render a clip', asy
   await test.step('adjusting settings re-renders as a new version', async () => {
     await page.goto(clipUrl);
     await page.getByRole('switch', { name: /captions/i }).click();
+    await page.getByRole('radio', { name: '1:1', exact: true }).click();
     await page.getByRole('radio', { name: /Center crop/i }).click();
     await page.getByRole('button', { name: /Re-render as v2/i }).click();
-    await expect(page).toHaveURL(/\/clips\/[0-9a-f-]{36}$/, { timeout: 60_000 });
+    await expect(page).toHaveURL(/\/clips\/\d+$/, { timeout: 60_000 });
     await expect(page.getByText('v2', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('link', { name: /Download MP4/i })).toBeVisible({ timeout: 420_000 });
     await expect(page.getByRole('heading', { name: 'Versions' })).toBeVisible();
+    await expect(page.getByText(/1080×1080/)).toBeVisible();
   });
 
   await test.step('the clips library lists both versions', async () => {

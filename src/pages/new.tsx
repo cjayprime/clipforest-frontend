@@ -9,14 +9,14 @@ export default function NewVideoPage() {
   const cfg = useAppConfig().data;
   const facts = [
     { icon: ListChecks, title: 'Ranked moments', body: 'The transcript is scanned in overlapping windows; strong moments are deduplicated, snapped to sentence boundaries and scored 0–100.' },
-    { icon: ScanFace, title: 'Smart 9:16 framing', body: 'Only the clip you generate is analyzed for faces, with a smoothed virtual camera and a safe fallback.' },
+    { icon: ScanFace, title: 'Smart framing', body: 'Only the clip you generate is analyzed for faces, with a smoothed virtual camera and a safe fallback.' },
     { icon: Captions, title: 'Word-timed captions', body: 'Burned-in captions come from the word timings, with the spoken word highlighted as it is said.' },
     { icon: Crop, title: 'Adjust and re-render', body: 'Change start/end, framing and caption style without re-transcribing.' },
   ];
   return (
     <PageContainer>
       <Head>
-        <title>New video · ClipForest</title>
+        <title>New video · ClipRover</title>
       </Head>
       <div className="mx-auto max-w-5xl space-y-8">
         <div className="space-y-2">

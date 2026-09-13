@@ -16,7 +16,7 @@ export default function Dashboard() {
   return (
     <PageContainer>
       <Head>
-        <title>Dashboard · ClipForest</title>
+        <title>Dashboard · ClipRover</title>
       </Head>
       <div className="flex flex-col gap-10">
         <section className="space-y-2">

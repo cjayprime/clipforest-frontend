@@ -16,7 +16,7 @@ const outDir = path.resolve(arg('--out', 'tour-screenshots'));
 const headed = args.includes('--headed');
 const reuseEmail = arg('--reuse', null);
 const PASSWORD = 'tour-password-123';
-const BASE = process.env.CLIPFOREST_WEB_URL ?? 'http://localhost:3000';
+const BASE = process.env.CLIPROVER_WEB_URL ?? 'http://localhost:3000';
 const FIXTURE = path.resolve(import.meta.dirname, '.fixtures/sample.mp4');
 
 const problems = [];
@@ -105,7 +105,7 @@ async function main() {
     await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
     await page.getByRole('checkbox', { name: /own this content/i }).check();
     await page.locator('input[type="file"]').setInputFiles(FIXTURE);
-    await page.waitForURL(/\/videos\/[0-9a-f-]{36}$/, { timeout: 60_000 });
+    await page.waitForURL(/\/videos\/\d+$/, { timeout: 60_000 });
     videoUrl = page.url();
     console.log('uploading →', videoUrl);
 
@@ -133,7 +133,7 @@ async function main() {
 
     current = 'clip-editor';
     await page.locator('article').first().getByRole('button', { name: 'Generate clip' }).click();
-    await page.waitForURL(/\/clips\/[0-9a-f-]{36}$/, { timeout: 60_000 });
+    await page.waitForURL(/\/clips\/\d+$/, { timeout: 60_000 });
     await page.waitForTimeout(3000);
     await shot(page, 'clip-editor-rendering', { fullPage: true });
     await page.getByRole('link', { name: /Download MP4/i }).waitFor({ timeout: 420_000 });
@@ -145,7 +145,7 @@ async function main() {
     const firstClip = page.locator('a[href^="/clips/"]').first();
     if (await firstClip.count()) {
       await firstClip.click();
-      await page.waitForURL(/\/clips\/[0-9a-f-]{36}$/, { timeout: 30_000 });
+      await page.waitForURL(/\/clips\/\d+$/, { timeout: 30_000 });
       await page.waitForLoadState('networkidle');
       await shot(page, 'clip-editor-completed', { fullPage: true });
     }

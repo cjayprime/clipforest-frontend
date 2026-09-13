@@ -13,7 +13,7 @@ export default function VideosPage() {
   return (
     <PageContainer>
       <Head>
-        <title>Videos · ClipForest</title>
+        <title>Videos · ClipRover</title>
       </Head>
       <div className="space-y-6">
         <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">

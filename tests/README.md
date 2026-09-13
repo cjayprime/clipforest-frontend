@@ -20,14 +20,17 @@ npm run dev                                                    # web on :3000
 
 With no provider keys set the backend runs fully offline (mock transcription + heuristic analysis) and still renders a real 1080×1920 clip.
 
-Use `localhost`, not `127.0.0.1` — the browser uploads straight to storage and the storage CORS allow-list is origin-exact. Override with `CLIPFOREST_WEB_URL` if you serve the app elsewhere.
+Use `localhost`, not `127.0.0.1` — the browser uploads straight to storage and the storage CORS allow-list is origin-exact. Override with `CLIPROVER_WEB_URL` if you serve the app elsewhere.
 
 ## Running
 
 ```bash
-npx playwright test                    # golden-path.spec.ts
+npx playwright test                    # golden-path.spec.ts + auth.spec.ts
+npx playwright test auth               # accounts and passwords only (fast, no rendering)
 npx playwright test --headed           # watch it
 ```
+
+`auth.spec.ts` follows a real password reset link. The token exists only inside the email, so the run reads it back from the backend's dev inbox: the backend needs **`MAIL_TEST_INBOX=1`** (already set in its `.env.example`). Without it the suite fails with a clear message rather than silently skipping.
 
 ## Looking at the UI
 
@@ -48,9 +51,20 @@ It writes `report.json` alongside the screenshots.
 `browser/.fixtures/sample.mp4` (gitignored) is generated, not committed. From the backend repo, which has the worker image with FFmpeg:
 
 ```bash
-docker run --rm -v "<this-repo>/tests/browser/.fixtures:/out" clipforest-worker \
+docker run --rm -v "<this-repo>/tests/browser/.fixtures:/out" cliprover-worker \
   ffmpeg -v error -y -f lavfi -i testsrc2=size=640x360:rate=24 -f lavfi -i sine=frequency=300 \
   -t 100 -c:v libx264 -preset veryfast -crf 38 -pix_fmt yuv420p -c:a aac -b:a 64k /out/sample.mp4
 ```
 
 Any short MP4 with an audio track works. It is a synthetic pattern with no faces, so renders fall back to center crop by design.
+
+**It also contains no speech** — only a test tone. That is fine for the mock transcription provider, which fabricates a transcript, but a real one (AssemblyAI, Deepgram, Whisper) correctly returns almost nothing, analysis then finds zero moments, and `golden-path.spec.ts` fails at "ranked moments appear" with no cards. Zero moments is a valid product outcome, not a bug. So when the backend is configured with real provider keys, either point `CLIPROVER_FIXTURE` at a video containing actual speech, or run the pipeline test against deterministic providers:
+
+```bash
+cd backend/infra
+TRANSCRIPTION_PROVIDER=mock LLM_PROVIDER=heuristic docker compose --env-file ../.env up -d worker
+# ...run the suite, then restore:
+docker compose --env-file ../.env up -d worker
+```
+
+Shell variables outrank `--env-file`, so this overrides the providers without editing `.env`. `auth.spec.ts` is unaffected — it never touches the pipeline.

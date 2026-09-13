@@ -106,7 +106,7 @@ export function NewVideoPanel() {
           </div>
           <p className="flex items-center gap-2 font-mono text-[11px] text-outline">
             <CircleCheck className="size-3.5 text-tertiary" aria-hidden />
-            Transcribes speech, finds and ranks moments, then renders 9:16 clips on demand.
+            Transcribes speech, finds and ranks moments, then renders 9:16, 4:5, 1:1 or 16:9 clips on demand.
           </p>
         </form>
 

@@ -1,39 +1,11 @@
 import clsx from 'clsx';
+import { type ButtonHTMLAttributes, forwardRef, type HTMLAttributes, type ReactNode, useState } from 'react';
 import { Check, Copy, LoaderCircle as Loader2, RotateCcw, TriangleAlert as AlertTriangle } from 'lucide-react';
-import { forwardRef, useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { RENDER_STATUS_LABEL, scoreTier, VIDEO_STATUS_LABEL } from '@/lib/format';
 import type { ApiErrorBody, RenderStatus, VideoStatus } from '@/lib/types';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
-
-export const Button = forwardRef<
-  HTMLButtonElement,
-  ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; size?: 'sm' | 'md' | 'lg'; loading?: boolean; icon?: ReactNode }
->(function Button({ variant = 'secondary', size = 'md', loading, icon, className, children, disabled, ...rest }, ref) {
-  return (
-    <button
-      ref={ref}
-      disabled={disabled || loading}
-      className={clsx(
-        'inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100',
-        size === 'sm' && 'h-9 px-3 text-xs',
-        size === 'md' && 'h-10 px-4 text-sm',
-        size === 'lg' && 'h-11 px-5 text-sm',
-        variant === 'primary' && 'bg-primary text-on-primary shadow-[0_3px_0_#a0bc64] hover:bg-[#dcff9b]',
-        variant === 'secondary' && 'border border-outline-variant/60 bg-surface text-fg hover:border-outline hover:bg-surface-high',
-        variant === 'ghost' && 'text-fg-muted hover:bg-white/5 hover:text-fg',
-        variant === 'danger' && 'text-danger hover:bg-danger-strong/25',
-        className,
-      )}
-      {...rest}
-    >
-      {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : icon}
-      {children}
-    </button>
-  );
-});
-
-type Tone = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'danger' | 'warning' | 'muted';
+/** The semantic colour a badge carries. Shared by Badge and both status badges. */
+export type Tone = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'danger' | 'warning' | 'muted';
 
 export function Badge({ tone = 'neutral', children, className, dot }: { tone?: Tone; children: ReactNode; className?: string; dot?: boolean }) {
   return (
@@ -53,6 +25,18 @@ export function Badge({ tone = 'neutral', children, className, dot }: { tone?: T
       {dot && <span className="size-1.5 rounded-full bg-current" aria-hidden />}
       {children}
     </span>
+  );
+}
+
+export function RenderStatusBadge({ status, progress }: { status: RenderStatus; progress?: number }) {
+  const tone: Tone = status === 'COMPLETED' ? 'tertiary' : status === 'FAILED' ? 'danger' : 'primary';
+  const busy = status !== 'COMPLETED' && status !== 'FAILED';
+  return (
+    <Badge tone={tone}>
+      {busy && <Loader2 className="size-3 animate-spin" aria-hidden />}
+      {RENDER_STATUS_LABEL[status]}
+      {busy && progress !== undefined && progress > 0 ? ` ${progress}%` : ''}
+    </Badge>
   );
 }
 
@@ -81,58 +65,55 @@ export function VideoStatusBadge({ status }: { status: VideoStatus }) {
   const busy = !['READY', 'FAILED', 'CREATED'].includes(status);
   return (
     <Badge tone={tone}>
-      {busy ? <Loader2 className="size-3 animate-spin" aria-hidden /> : status === 'READY' ? <Check className="size-3" aria-hidden /> : status === 'FAILED' ? <AlertTriangle className="size-3" aria-hidden /> : null}
+      {busy ? (
+        <Loader2 className="size-3 animate-spin" aria-hidden />
+      ) : status === 'READY' ? (
+        <Check className="size-3" aria-hidden />
+      ) : status === 'FAILED' ? (
+        <AlertTriangle className="size-3" aria-hidden />
+      ) : null}
       {VIDEO_STATUS_LABEL[status]}
     </Badge>
   );
 }
 
-export function RenderStatusBadge({ status, progress }: { status: RenderStatus; progress?: number }) {
-  const tone: Tone = status === 'COMPLETED' ? 'tertiary' : status === 'FAILED' ? 'danger' : 'primary';
-  const busy = status !== 'COMPLETED' && status !== 'FAILED';
-  return (
-    <Badge tone={tone}>
-      {busy && <Loader2 className="size-3 animate-spin" aria-hidden />}
-      {RENDER_STATUS_LABEL[status]}
-      {busy && progress !== undefined && progress > 0 ? ` ${progress}%` : ''}
-    </Badge>
-  );
-}
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
-export function ProgressBar({ value, label, className, animated = true }: { value: number; label: string; className?: string; animated?: boolean }) {
-  const v = Math.max(0, Math.min(100, value));
+export const Button = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant; size?: 'sm' | 'md' | 'lg'; loading?: boolean; icon?: ReactNode }
+>(function Button({ variant = 'secondary', size = 'md', loading, icon, className, children, disabled, ...rest }, ref) {
   return (
-    <div
-      role="progressbar"
-      aria-label={label}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={Math.round(v)}
-      className={clsx('relative h-2 w-full overflow-hidden rounded-full bg-surface-high', className)}
+    <button
+      ref={ref}
+      disabled={disabled || loading}
+      className={clsx(
+        'inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100',
+        size === 'sm' && 'h-9 px-3 text-xs',
+        size === 'md' && 'h-10 px-4 text-sm',
+        size === 'lg' && 'h-11 px-5 text-sm',
+        variant === 'primary' && 'bg-primary text-on-primary shadow-[0_3px_0_#a0bc64] hover:bg-[#dcff9b]',
+        variant === 'secondary' && 'border border-outline-variant/60 bg-surface text-fg hover:border-outline hover:bg-surface-high',
+        variant === 'ghost' && 'text-fg-muted hover:bg-white/5 hover:text-fg',
+        variant === 'danger' && 'text-danger hover:bg-danger-strong/25',
+        className,
+      )}
+      {...rest}
     >
-      <div
-        className="relative h-full overflow-hidden rounded-full bg-gradient-to-r from-primary-strong to-primary transition-[width] duration-500"
-        style={{ width: `${v}%` }}
-      >
-        {animated && v < 100 && <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />}
-      </div>
-    </div>
+      {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : icon}
+      {children}
+    </button>
   );
-}
+});
 
-export function Card({ className, children, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
+/** The shared text-input styling, applied by callers as `className={inputClass}`. */
+export const inputClass =
+  'h-10 w-full rounded-lg border border-outline-variant/50 bg-surface-lowest px-3 text-sm text-fg placeholder:text-outline/70 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary';
+
+export function Card({ className, children, ...rest }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={clsx('rounded-xl border border-outline-variant/30 bg-surface-low', className)} {...rest}>
       {children}
-    </div>
-  );
-}
-
-export function Spinner({ label = 'Loading' }: { label?: string }) {
-  return (
-    <div role="status" className="flex items-center justify-center gap-2 py-16 text-sm text-outline">
-      <Loader2 className="size-4 animate-spin" aria-hidden />
-      {label}…
     </div>
   );
 }
@@ -200,6 +181,42 @@ export function ErrorPanel({
   );
 }
 
+/**
+ * Label + control + optional hint. The hint sits inside the <label>, so it
+ * becomes part of the control's accessible name — worth knowing when writing
+ * `getByLabel` selectors.
+ */
+export function Field({ label, hint, children }: { label: string; hint?: ReactNode; children: ReactNode }) {
+  return (
+    <label className="block min-w-0 space-y-2">
+      <span className="font-mono text-[11px] uppercase tracking-wider text-outline">{label}</span>
+      {children}
+      {hint && <span className="block text-xs text-outline">{hint}</span>}
+    </label>
+  );
+}
+
+export function ProgressBar({ value, label, className, animated = true }: { value: number; label: string; className?: string; animated?: boolean }) {
+  const v = Math.max(0, Math.min(100, value));
+  return (
+    <div
+      role="progressbar"
+      aria-label={label}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(v)}
+      className={clsx('relative h-2 w-full overflow-hidden rounded-full bg-surface-high', className)}
+    >
+      <div
+        className="relative h-full overflow-hidden rounded-full bg-gradient-to-r from-primary-strong to-primary transition-[width] duration-500"
+        style={{ width: `${v}%` }}
+      >
+        {animated && v < 100 && <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />}
+      </div>
+    </div>
+  );
+}
+
 export function Segmented<T extends string>({
   value,
   onChange,
@@ -212,7 +229,11 @@ export function Segmented<T extends string>({
   label: string;
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex max-w-full flex-wrap gap-1 rounded-lg border border-outline-variant/40 bg-surface-lowest p-1 font-mono text-[11px]">
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className="inline-flex max-w-full flex-wrap gap-1 rounded-lg border border-outline-variant/40 bg-surface-lowest p-1 font-mono text-[11px]"
+    >
       {options.map((o) => (
         <button
           key={o.value}
@@ -225,6 +246,15 @@ export function Segmented<T extends string>({
           {o.label}
         </button>
       ))}
+    </div>
+  );
+}
+
+export function Spinner({ label = 'Loading' }: { label?: string }) {
+  return (
+    <div role="status" className="flex items-center justify-center gap-2 py-16 text-sm text-outline">
+      <Loader2 className="size-4 animate-spin" aria-hidden />
+      {label}…
     </div>
   );
 }
@@ -243,16 +273,3 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
     </button>
   );
 }
-
-export function Field({ label, hint, children }: { label: string; hint?: ReactNode; children: ReactNode }) {
-  return (
-    <label className="block min-w-0 space-y-2">
-      <span className="font-mono text-[11px] uppercase tracking-wider text-outline">{label}</span>
-      {children}
-      {hint && <span className="block text-xs text-outline">{hint}</span>}
-    </label>
-  );
-}
-
-export const inputClass =
-  'h-10 w-full rounded-lg border border-outline-variant/50 bg-surface-lowest px-3 text-sm text-fg placeholder:text-outline/70 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary';
